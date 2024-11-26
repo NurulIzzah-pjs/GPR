@@ -1,0 +1,32 @@
+/* body {
+    background-color: purple;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+} */
+
+.container {
+    text-align: center;
+    color: white;
+    justify-items: center;
+}
+
+#box {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+.payment .container{
+    display: flex;
+}
