@@ -30,6 +30,23 @@
     color: color-mix(in srgb, var(--default-color), transparent 70%);
   }
 
+  .register .php-email-form input[type=password]:focus,
+         .register .php-email-form textarea:focus{
+    border-color: var(--accent-color);
+}
+
+.register .php-email-form input[type=password],
+.register .php-email-form textarea{
+    font-size: 14px;
+    padding: 10px 15px;
+    box-shadow: none;
+    border-radius: 0;
+    color: var(--default-color);
+    background-color: var(--surface-color);
+    border-color: color-mix(in srgb, var(--default-color), transparent 80%);
+
+  }
+
 .register .php-email-form .btn {
     display: inline-block;
     text-align: center; /* Center text horizontally */
@@ -68,7 +85,7 @@
     border-radius: 0px;
     /* width: 100%; */
     background-color: var(--surface-color);
-    color: color-mix(in srgb, var(--default-color), transparent 70%); /* Same as placeholder color */
+    color: color-mix(in srgb, var(--default-color), transparent 70%); Same as placeholder color
 }
 
 .php-email-form select:focus {
@@ -85,3 +102,9 @@
 .php-email-form select option[value=""] {
     color: color-mix(in srgb, var(--default-color), transparent 70%);
 }
+
+/* Style the selected state (after choosing an option) */
+.php-email-form select:not([value=""]) {
+  color: #ffffff; /* Solid white text for selected state */
+}
+
