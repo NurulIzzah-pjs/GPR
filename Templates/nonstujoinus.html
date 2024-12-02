@@ -6,7 +6,7 @@
     <meta name="keywords" content="Book an Appointment, INTUITIVE">
     <title>Join US</title>
     <!-- Favicons -->
-    <link href="assets/img/favicon.png" rel="icon">
+    <link href="../assets/img/favicon.png" rel="icon">
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com" rel="preconnect">
@@ -15,8 +15,8 @@
 
     <!-- Vendor CSS Files -->
     <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href=".//assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-    <link href=".//assets/vendor/aos/aos.css" rel="stylesheet">
+    <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="../assets/vendor/aos/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 
     <!-- Main CSS File -->
@@ -29,18 +29,17 @@
     <header id="header" class="header d-flex align-items-center px-3 sticky-top">
         <div class="container-fluid position-relative d-flex align-items-center justify-content-between">
     
-          <a href="index.html" class="logo d-flex align-items-center">
+          <a href="../index.html" class="logo d-flex align-items-center">
             <!-- Uncomment the line below if you also wish to use an image logo -->
             <!-- <img src="assets/img/logo.png" alt=""> -->
             <h1 class="sitename">3KPP USM</h1>
           </a>
           <nav id="navmenu" class="navmenu">
             <ul>
-              <li><a href="index.html" class="active">Home</a></li>
-              <li><a href="#about">About</a></li>
-              <li><a href="#contact">Contact</a></li>
-              <li><a href="#payment">Payment</a></li>
-              <li><a href="joinus.html">Join Us</a></li>
+              <li><a href="../index.html" class="active">Home</a></li>
+              <li><a href="../#about">About</a></li>
+              <li><a href="../#contact">Contact</a></li>
+              <li><a href="../#payment">Payment</a></li>
             </ul>
             <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
           </nav>
@@ -55,43 +54,33 @@
     <div class="container form">
         <div class="row gy-4">
             <div class="col-lg-6">
-                <form action="qr.html" method="get" class="php-email-form">
+                <form action="participant_dash.html" method="get" class="php-email-form">
                     <div class="col-md-6">
                         <label for="name" class="u-label">Name</label>
                         <input type="text" placeholder="Enter your Name" id="name" name="name" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="ic" class="u-label">Identification Card</label>
+                        <input type="text" placeholder="Enter your IC" id="ic" name="ic" required>
                     </div>
                     <div class="col-md-6">
                         <label for="phone" class="u-label">Phone</label>
                         <input type="text" placeholder="Enter your number phone" id="phone" name="phone"  required>
                     </div>
                     <div class="col-md-6">
-                      <label for="status" class="u-label">Status</label>
-                      <select id="status" name="status" required>
-                          <option value="" disabled selected>Select your status</option>
-                          <option value="basic">Student</option>
-                          <option value="pro">Non-Student</option>
-                      </select>
-                  </div>
-                    <div class="col-md-6">
-                        <label for="nomatric" class="u-label">No. Matric</label>
-                        <input type="text" placeholder="Enter your No. Matric" id="nomatric" name="nomatric"  required>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="school" class="u-label">School</label>
-                        <input type="text" placeholder="Enter your school" id="school" name="school"  required>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="campus" class="u-label">Campus</label>
-                        <input type="text" placeholder="Enter your campus" id="campus" name="campus" required>
-                    </div>
-                    <div class="col-md-6">
                         <label for="package" class="u-label">Package</label>
                         <select id="package" name="package" required>
                             <option value="" disabled selected>Select your package</option>
-                            <option value="basic">GLOW-RIOUS STARTER</option>
                             <option value="pro">GLOW-RIOUS PRO</option>
-                            <option value="lite">GLOW-RIOUS LITE</option>
                         </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="username" class="u-label">Username</label>
+                        <input type="text" placeholder="Create Username" id="username" name="username"  required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="pass" class="u-label">Password</label>
+                        <input type="password" placeholder="Create Password" id="pass" name="pass"  required>
                     </div>
                     <div class="col-md-6">
                         <button type="submit" class="btn">Register</button>

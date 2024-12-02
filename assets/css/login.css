@@ -2,8 +2,14 @@
     /* background: color-mix(in srgb, var(--default-color), transparent 96%); */
     padding: 5px;
     height: 100%;
-    justify-items: center;
   }
+  
+.fillin{
+  justify-items: center;
+  margin-left: -40px;
+  margin-top: -30px;
+}
+
 
 .login .log-in-form input[type=text],
 .login .log-in-form textarea{
@@ -21,6 +27,23 @@
 .login .log-in-form textarea:focus{
     border-color: var(--accent-color);
 }
+
+.login .log-in-form input[type=password]:focus,
+.login .log-in-form textarea:focus{
+    border-color: var(--accent-color);
+}
+
+.login .log-in-form input[type=password],
+.login .log-in-form textarea{
+    font-size: 14px;
+    padding: 10px 15px;
+    box-shadow: none;
+    border-radius: 0;
+    color: var(--default-color);
+    background-color: var(--surface-color);
+    border-color: color-mix(in srgb, var(--default-color), transparent 80%);
+
+  }
 
 .login .log-in-form .btn{
     display: inline-block;
@@ -57,7 +80,14 @@
     max-width: 400px; /* Ensure it doesn't grow too large on wide screens */
   }
 
-.submit{
-    display: inline-block;
-    width: 35%;
+ .other{
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  margin-top: 10px; /* Optional: Add some spacing from other content */
+}
+
+.other a {
+  margin: 5px 0; /* Add vertical spacing between the links */
+  text-decoration: underline;
+  color: rgb(165, 84, 240);
 }

@@ -24,26 +24,26 @@
 
   <!-- Main CSS File -->
   <link href="../assets/css/main.css" rel="stylesheet">
-  <link href="../assets/css/login.css" rel="stylesheet">
+  <link href="../assets/css/login.css" rel="stylesheet"
 </head>
+
 <body class="login-body" data-lang="en">
 
     <header id="header" class="header d-flex align-items-center px-3 sticky-top">
         <div class="container-fluid position-relative d-flex align-items-center justify-content-between">
     
-          <a href="index.html" class="logo d-flex align-items-center">
+          <a href="../index.html" class="logo d-flex align-items-center">
             <!-- Uncomment the line below if you also wish to use an image logo -->
             <!-- <img src="assets/img/logo.png" alt=""> -->
             <h1 class="sitename">3KPP USM</h1>
           </a>
           <nav id="navmenu" class="navmenu">
             <ul>
-              <li><a href="index.html" class="active">Home</a></li>
-              <li><a href="#about">About</a></li>
-              <li><a href="#contact">Contact</a></li>
-              <li><a href="#payment">Payment</a></li>
-              <li><a href="joinus.html">Join Us</a></li>
-              <li><a href="login.html">Log In</a></li>
+              <li><a href="../index.html" class="active">Home</a></li>
+              <li><a href="../#about">About</a></li>
+              <li><a href="../#contact">Contact</a></li>
+              <li><a href="../#payment">Payment</a></li>
+              <li><a href="../#payment">Join Us</a></li>
             </ul>
             <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
           </nav>
@@ -53,26 +53,28 @@
 
     <section id="login" class="login section transparent-background">
        <div class="container form">
+        <div class="section-title">
+          <h2>Log In</h2>
+          <p>Please log in using your username and password</p>
+        </div>
         <form class="log-in-form">
-            <div class="section-title">
-                <h2>Log In</h2>
-                <p>Please log in using your name and IC</p>
+          <div class="fillin">
+            <div class="col-md-6">
+              <label for="username" class="u-label">Username</label>
+              <input type="text" id="username" name="username" required>
             </div>
             <div class="col-md-6">
-                <label for="name" class="u-label">Name</label>
-                <input type="text" id="name" name="name" required>
+              <label for="pass" class="u-label">Password</label>
+              <input type="password" id="pass" name="pass" required>
             </div>
             <div class="col-md-6">
-                <label for="identificationcard" class="u-label">Identification Card</label>
-                <input type="text" id="IC" name="IC" required>
+              <a class="btn" href="participant_dash.html" type="button">Log In</a>
             </div>
-            <div class="col-md-6">
-                <a class="btn" href="qr.html" type="button">Log In</a>
-            </div>
-            <div class="other">
-                <a href="forgotpass.html" class="btn submit frgt">Forget Password</a>
-                <a href="joinus.html" class="btn submit joinus">Register</a>
-            </div>
+          </div>
+          <div class="other">
+              <a href="forgotpass.html">Forget Password</a>
+              <a href="userpage.html">Register</a>
+          </div>
         </form>
        </div>
     </section> 
