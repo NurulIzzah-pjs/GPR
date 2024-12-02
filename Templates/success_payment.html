@@ -1,12 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="en" style="font-size: 16px;">
 <head>
-    <meta charset="UTF-8">
-    <link rel="icon" href="../assets/img/dollar.png" type="image/png" sizes="16x16">
-    <title>Payment Success</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
-    <link href="../assets/css/payment.css" rel="stylesheet" type="text/css" media="all" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="Book an Appointment, INTUITIVE">
+    <title>Join Us</title>
+    
+    <!-- Favicons -->
+    <link href="../assets/img/favicon.png" rel="icon">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;700&family=Poppins:wght@100;400;700&display=swap" rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="../assets/vendor/aos/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+
+    <!-- Main CSS Files -->
+    <link href="../assets/css/main.css" rel="stylesheet">
+    <link href="../assets/css/payment.css" rel="stylesheet">
 </head>
 <style>
 
@@ -144,29 +160,32 @@
         color: #32a852;
     }
 
-    .btn {
-    display: inline-block;
-    text-align: center; /* Center text horizontally */
-    vertical-align: middle; /* Center text vertically */
-    background: var(--accent-color);
-    color: #ffffff; /* Set the text color to white */
-    padding: 10px 20px; /* Add padding for a comfortable button size */
-    border: none; /* Remove borders */
-    border-radius: 50px; /* Rounded corners */
-    font-size: 16px; /* Font size for better readability */
-    font-weight: bold; /* Make the text bold */
-    cursor: pointer; /* Change cursor to pointer on hover */
-    transition: background-color 0.3s ease; /*Smooth hover effect*/
-    margin-top: 10px;
-  }
-   .btn:hover {
-    background: color-mix(in srgb, var(--accent-color), transparent 15%);
-  }
+    .btn-container {
+  display: flex; /* Activate flexbox */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  width: 100%; /* Full width */
+  text-align: center; /* Center inline text */
+  box-sizing: border-box; /* Include padding and border in width/height */
+}
 
-  .btnjoinus {
-    display: flex;
-    justify-content: center; /* Centers the button horizontally */
-    margin-top: 20px; /* Adjusts spacing from other elements */
+.btn {
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+  background: var(--accent-color);
+  color: #ffffff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 50px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background: color-mix(in srgb, var(--accent-color), transparent 15%);
 }
 
 
@@ -212,63 +231,61 @@
         }
     }
 </style>
+<body class="join-body" data-lang="en">
 
-<header id="header" class="header d-flex align-items-center px-3 sticky-top">
-    <div class="container-fluid position-relative d-flex align-items-center justify-content-between">
-
-      <a href="../index.html" class="logo d-flex align-items-center">
-        <!-- Uncomment the line below if you also wish to use an image logo -->
-        <!-- <img src="assets/img/logo.png" alt=""> -->
-        <h1 class="sitename">3KPP USM</h1>
-      </a>
-      <!-- <nav id="navmenu" class="navmenu">
-        <ul>
-          <li><a href="index.html" class="active">Home</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#contact">Contact</a></li>
-          <li><a href="#payment">Payment</a></li>
-          <li><a href="joinus.html">Join Us</a></li>
-          <li><a href="login.html">Log In</a></li>
-        </ul>
-        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
-      </nav> -->
-
-    </div>
-    
-</header>
-<div  class="container section-title">
-    <h2>Payment successful ! , Thank You</h2>
-    <h3>Registration Complete. Please Log In.</h3>
-</div>
-<body>
-    <div class="btnjoinus"> 
-        <a class="btn btn-light" href="participantlogin.html" role="button" style="background-color: #ad18ed; color: white; cursor:pointer; border: 2px solid white; ">Log In</a>
-      </div>
-    <div class="receiptcontainer">
-        <div class="printer-top"></div>
-
-        <div class="paper-container">
-            <div class="printer-bottom"></div>
-
-            <div class="paper">
-                <div class="main-contents">
-                    <div class="success-icon">&#10004;</div>
-                    <div class="success-title">
-                        Payment Complete
-                    </div>
-                    <div class="success-description">
-                        Thank you for completing the payment! You will shortly receive an email of your payment.
-                    </div>
-                    <div class="order-details">
-                        <div class="order-number-label">Transaction ID</div>
-                        <div class="order-number">123456789</div>
-                        <div class="complement">Thank You!</div>
-                    </div>
-                </div>
-                <div class="jagged-edge"></div>
-            </div>
-          </div>
+    <header id="header" class="header d-flex align-items-center px-3 sticky-top">
+        <div class="container-fluid position-relative d-flex align-items-center justify-content-between">
+            <a href="../index.html" class="logo d-flex align-items-center">
+                <h1 class="sitename">3KPP USM</h1>
+            </a>
+            <nav id="navmenu" class="navmenu">
+                <ul>
+                    <li><a href="../index.html" class="active">Home</a></li>
+                    <li><a href="../#about">About</a></li>
+                    <li><a href="../#contact">Contact</a></li>
+                    <li><a href="../#payment">Payment</a></li>
+                </ul>
+                <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+            </nav>
         </div>
+    </header>
 
-</body>
-</html>
+    <section id="register" class="register section transparent-background">
+        <div  class="container section-title">
+            <h2>Payment successful ! , Thank You</h2>
+            <h3>Registration Complete. Please Log In.</h3>
+        </div>
+        <body>
+            <div class="btn-container">
+                <div class="btnjoinus"> 
+                  <a class="btn btn-light" href="participantlogin.html" role="button" style="background-color: #ad18ed; color: white; cursor: pointer; border: 2px solid white;">Log In</a>
+                </div>
+              </div>
+            <div class="receiptcontainer">
+                <div class="printer-top"></div>
+        
+                <div class="paper-container">
+                    <div class="printer-bottom"></div>
+        
+                    <div class="paper">
+                        <div class="main-contents">
+                            <div class="success-icon">&#10004;</div>
+                            <div class="success-title">
+                                Payment Complete
+                            </div>
+                            <div class="success-description">
+                                Thank you for completing the payment! You will shortly receive an email of your payment.
+                            </div>
+                            <div class="order-details">
+                                <div class="order-number-label">Transaction ID</div>
+                                <div class="order-number">123456789</div>
+                                <div class="complement">Thank You!</div>
+                            </div>
+                        </div>
+                        <div class="jagged-edge"></div>
+                    </div>
+                  </div>
+                </div>
+        
+        </body>
+        </html>

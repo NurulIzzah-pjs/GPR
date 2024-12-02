@@ -1,86 +1,4 @@
-html,
-body,
-div,
-span,
-applet,
-object,
-iframe,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-blockquote,
-pre,
-a,
-abbr,
-acronym,
-address,
-big,
-cite,
-code,
-del,
-dfn,
-em,
-img,
-ins,
-kbd,
-q,
-s,
-samp,
-small,
-strike,
-strong,
-sub,
-sup,
-tt,
-var,
-b,
-u,
-i,
-dl,
-dt,
-dd,
-ol,
-fieldset,
-form,
-label,
-legend,
-table,
-caption,
-tbody,
-tfoot,
-thead,
-tr,
-th,
-td,
-article,
-aside,
-canvas,
-details,
-embed,
-figure,
-figcaption,
-footer,
-hgroup,
-menu,
-output,
-ruby,
-section,
-summary,
-time,
-mark,
-audio,
-video {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    font-size: 100%;
-    font: inherit;
-    vertical-align: baseline;
-}
+
 
 article,
 aside,
@@ -805,14 +723,14 @@ label {
     padding: 0px 0;
 }
 
-.main h1 {
+/* .main h1 {
     font-size: 35px;
     text-align: center;
     text-transform: uppercase;
     color: #6daad6;
     margin-bottom: 25px;
     font-family: 'Poppins', sans-serif;
-}
+} */
 
 .content {
     width: 40%;
@@ -827,10 +745,11 @@ label {
 }
 
 .pay-tabs {
-    margin: 0 0 2em 0;
-    padding: 1em 1em 1.5em 1em;
-    background: #fff;
+    margin: 20px auto; /* Center the section */
+    background: #f9f9f9; /* Subtle background for better contrast */
     border: 1px solid #e7ebee;
+    border-radius: 8px; /* Add rounded corners */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add a soft shadow */
 }
 
 .pay-tabs h2 {
@@ -851,12 +770,18 @@ label {
 
 .resp-tabs-list {
     list-style: none;
-    margin: 0; /* Remove unnecessary margins */
+    margin: 0;
     padding: 0;
     display: flex; /* Use flexbox for layout */
-    justify-content: center; /* Center the boxes horizontally */
-    align-items: center; /* Center the boxes vertically (optional) */
-    gap: 10px; /* Optional: add space between the boxes */
+    justify-content: space-between; /* Distribute items evenly with space between */
+    align-items: center;
+    gap: 10px; /* Space between items */
+    padding: 0.5em; /* Add spacing around the list */
+    border-radius: 8px; /* Match the parent container's rounding */
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1); /* Add a subtle inner shadow */
+    width: 100%; /* Ensure the tab spans the full width */
+    height: 150px; /* Define a consistent height */
+    position: relative;
 }
 
 .resp-tab-item {
@@ -875,9 +800,8 @@ label {
     transition: all 0.3s ease-out;
     text-transform: capitalize;
     display: inline-block;
-    margin: 0 4%;
+    margin: 0 auto;
     float: left;
-    width: 17%;
 }
 
 .resp-tab-active {
@@ -908,19 +832,19 @@ h2.resp-accordion {
 }
 
 li.resp-tab-item span .pic3 {
-    background: url(../img/fpxpic.png) no-repeat 26px 15px #fafafa !important;
+    background: url(../img/pic3.png) no-repeat 15px #fafafa !important;
 }
 
 li.resp-tab-item span .pic1 {
-    background: url(../img/pic1.png) no-repeat 26px 15px #fafafa !important;
+    background: url(../img/pic1.png) no-repeat  #fafafa !important;
 }
 
 li.resp-tab-item span .pic4 {
-    background: url(../img/pic4.png) no-repeat 26px 15px #fafafa !important;
+    background: url(../img/pic4.png) no-repeat 5px #fafafa !important;
 }
 
 li.resp-tab-item span .pic2 {
-    background: url(../img/pic2.png) no-repeat 26px 15px #fafafa !important;
+    background: url(../img/pic2.png) no-repeat  #fafafa !important;
 }
 
 li.resp-tab-item span .pic1,
@@ -928,12 +852,19 @@ li.resp-tab-item span .pic2,
 li.resp-tab-item span .pic3,
 li.resp-tab-item span .pic4 {
     width: 100%;
-    height: 32px;
+    height: 100%;
     display: block;
-    border: 1px solid #e7ebee;
-    padding: 15px 0px;
+    /* border: 1px solid #e7ebee; */
+    padding: 20px 0px;
     margin-bottom: 15px;
     cursor: pointer;
+}
+
+/* Active state */
+.resp-tab-item span label:hover,
+.resp-tab-item span label:focus {
+    border-color: #6daad6; /* Highlight border on hover or focus */
+    background-color: rgba(255, 255, 255, 0.9); /* Optional: Add hover background */
 }
 
 li.resp-tab-item.resp-tab-active span label {
@@ -1186,8 +1117,8 @@ input.text_box {
     top: 5px;
     left: 0;
     display: block;
-    width: 12px;
-    height: 12px;
+    width: 15px;
+    height: 15px;
     outline: none;
     border: 3px solid #6daad6;
     background: #fff;
@@ -1242,8 +1173,9 @@ label.checkbox {
 .radio input + i:after {
     content: '';
     background: url("../img/tick-mark1.png") no-repeat center;
-    top: 1px;
-    left: 1px;
+    top: 0px;
+    left: 0px;
+    right: 1px;
     width: 9px;
     height: 9px;
     text-align: center;

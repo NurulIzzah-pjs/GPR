@@ -37,7 +37,7 @@ body {
   color: var(--default-color);
   background-color: var(--background-color);
   font-family: var(--default-font);
-  background: url(../img/paymentbg.png) top center no-repeat;
+  background: url(../img/Paymentbg.png) top center no-repeat;
   background-size: cover;
   position: relative;
 }
@@ -869,10 +869,10 @@ section,
 
 
 /*--------------------------------------------------------------
-# payment Section
+# Packages Section
 --------------------------------------------------------------*/
-.payment-bg {
-  background: url('/assets/img/paymentbg.png') no-repeat center center;
+.Packages-bg {
+  background: url('/assets/img/Packagesbg.png') no-repeat center center;
   background-size: cover; /* Ensures the image covers the section without distortion */
   background-attachment: fixed; /* Keeps the image stationary while scrolling */
   padding: 50px 0;
@@ -885,7 +885,7 @@ section,
   border-radius: 8px;
 }
 
-.payment .payment-card {
+.Packages .Packages-card {
   height: 100%;
   padding: 2rem;
   background: var(--surface-color);
@@ -894,44 +894,44 @@ section,
   position: relative;
 }
 
-.payment .payment-card:hover {
+.Packages .Packages-card:hover {
   box-shadow: 0 10px 30px rgba(255, 255, 255, 0.555);
 }
 
-.payment .payment-card.popular {
+.Packages .Packages-card.popular {
   background: var(--accent-color);
   color: var(--contrast-color);
 }
 
-.payment .payment-card.popular h3,
-.payment .payment-card.popular h4 {
+.Packages .Packages-card.popular h3,
+.Packages .Packages-card.popular h4 {
   color: var(--contrast-color);
 }
 
-.payment .payment-card.popular .price .currency,
-.payment .payment-card.popular .price .amount,
-.payment .payment-card.popular .price .period {
+.Packages .Packages-card.popular .price .currency,
+.Packages .Packages-card.popular .price .amount,
+.Packages .Packages-card.popular .price .period {
   color: var(--contrast-color);
 }
 
-.payment .payment-card.popular .features-list li {
+.Packages .Packages-card.popular .features-list li {
   color: var(--contrast-color);
 }
 
-.payment .payment-card.popular .features-list li i {
+.Packages .Packages-card.popular .features-list li i {
   color: var(--contrast-color);
 }
 
-.payment .payment-card.popular .btn-light {
+.Packages .Packages-card.popular .btn-light {
   background: var(--contrast-color);
   color: var(--accent-color);
 }
 
-.payment .payment-card.popular .btn-light:hover {
+.Packages .Packages-card.popular .btn-light:hover {
   background: color-mix(in srgb, var(--contrast-color), transparent 10%);
 }
 
-.payment .payment-card .popular-badge {
+.Packages .Packages-card .popular-badge {
   position: absolute;
   top: -12px;
   left: 50%;
@@ -945,77 +945,77 @@ section,
   box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.08);
 }
 
-.payment .payment-card h3 {
+.Packages .Packages-card h3 {
   font-size: 1.5rem;
   margin-bottom: 1rem;
 }
-.payment .payment-card h31 {
+.Packages .Packages-card h31 {
   font-size: 1.8rem;
   font-weight: 700;
   margin-bottom: 0.3rem;
 }
 
-.payment .payment-card .price {
+.Packages .Packages-card .price {
   margin-bottom: 1.5rem;
 }
 
-.payment .payment-card .price .currency {
+.Packages .Packages-card .price .currency {
   font-size: 1.5rem;
   font-weight: 600;
   vertical-align: top;
   line-height: 1;
 }
 
-.payment .payment-card .price .amount {
+.Packages .Packages-card .price .amount {
   font-size: 3.5rem;
   font-weight: 700;
   line-height: 1;
 }
 
-.payment .payment-card .price .period {
+.Packages .Packages-card .price .period {
   font-size: 1rem;
   color: color-mix(in srgb, var(--default-color), transparent 40%);
 }
 
-.payment .payment-card .description {
+.Packages .Packages-card .description {
   margin-bottom: 2rem;
   font-size: 0.975rem;
 }
 
-.payment .payment-card h4 {
+.Packages .Packages-card h4 {
   font-size: 1.125rem;
   margin-bottom: 1rem;
 }
 
-.payment .payment-card h4 {
+.Packages .Packages-card h4 {
   font-size: 1.125rem;
   margin-bottom: 1rem;
 }
 
-.payment .payment-card h5 {
+.Packages .Packages-card h5 {
   font-size: 0.7rem;
   margin-bottom: 0.8rem;
 }
 
-.payment .payment-card .features-list {
+.Packages .Packages-card .features-list {
   list-style: none;
   padding: 0;
   margin: 0 0 2rem 0;
 }
 
-.payment .payment-card .features-list li {
+.Packages .Packages-card .features-list li {
   display: flex;
   align-items: center;
   margin-bottom: 1rem;
 }
 
-.payment .payment-card .features-list li i {
+.Packages .Packages-card .features-list li i {
   color: var(--accent-color);
   margin-right: 0.75rem;
   font-size: 1.25rem;
 }
 
-.payment .payment-card .btn {
+.Packages .Packages-card .btn {
   width: 100%;
   padding: 0.75rem 1.5rem;
   display: flex;
@@ -1026,12 +1026,12 @@ section,
   border-radius: 50px;
 }
 
-.payment .payment-card .btn.btn-primary {
+.Packages .Packages-card .btn.btn-primary {
   background: var(--accent-color);
   border: none;
   color: var(--contrast-color);
 }
 
-.payment .payment-card .btn.btn-primary:hover {
+.Packages .Packages-card .btn.btn-primary:hover {
   background: color-mix(in srgb, var(--accent-color), transparent 15%);
 }
