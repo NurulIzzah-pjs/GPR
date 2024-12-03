@@ -967,6 +967,8 @@ table.table .avatar {
     box-shadow: none;
     background: #ddd;
 }
+
+
 /* Modal styles */
 .modal .modal-dialog {
     max-width: 400px;
@@ -998,6 +1000,94 @@ table.table .avatar {
 }	
 .modal form label {
     font-weight: normal;
+}
+
+.modal.fade .modal-dialog {
+  max-width: 600px; /* Set the width of the modal */
+  margin: 1.75rem auto; /* Center the modal on the screen */
+}
+
+/* Modal Content */
+.modal-content {
+  border-radius: 10px; /* Rounded corners */
+  padding: 20px; /* Padding around the modal content */
+  background-color: #fff; /* White background */
+  border: none; /* Remove borders */
+}
+
+/* Modal Header */
+.modal-header {
+  border-bottom: 1px solid #ddd; /* Light border between header and body */
+  padding: 15px 20px; /* Padding inside the header */
+  background-color: #f7f7f7; /* Light gray background */
+  color: #333; /* Dark text color */
+}
+
+/* Modal Title */
+.modal-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin: 0; /* Remove default margin */
+  color: black;
+}
+
+/* Close Button */
+.modal-header .close {
+  font-size: 1.5rem;
+  color: #999; /* Light gray color for close button */
+  opacity: 1; /* Full opacity */
+}
+
+.modal-header .close:hover {
+  color: #333; /* Darker color on hover */
+}
+
+/* Modal Body */
+.modal-body {
+  padding: 20px; /* Padding around the form */
+  color: black;
+}
+
+/* Form Group */
+.form-group {
+  margin-bottom: 1.5rem; /* Space between form fields */
+}
+
+.form-group label {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #333; /* Label color */
+}
+
+.form-control {
+  border-radius: 5px; /* Rounded input fields */
+  padding: 10px; /* Padding inside input fields */
+  font-size: 1rem; /* Font size for input text */
+  border: 1px solid #ddd; /* Light border for input */
+}
+
+.form-control:focus {
+  border-color: #5b9bd5; /* Blue border on focus */
+  box-shadow: 0 0 5px rgba(91, 155, 213, 0.5); /* Subtle glow on focus */
+}
+
+/* Buttons */
+button.close {
+  padding: 0.75rem;
+  background-color: transparent;
+  border: none;
+  font-size: 1.5rem;
+  color: #999;
+}
+
+button.close:hover {
+  color: #333;
+}
+
+.modal-footer {
+  border-top: 1px solid #ddd;
+  padding: 10px 20px;
+  text-align: right;
 }
 
   
