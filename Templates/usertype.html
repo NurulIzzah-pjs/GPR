@@ -38,6 +38,46 @@
    .container{
     margin-top: 100px;
    }
+   
+   body {
+        font-family: var(--default-font);
+    }
+
+    .container .row {
+        display: flex;
+        align-items: stretch; /* Ensures all cards in the row stretch to the same height */
+    }
+
+    .container .col-md-6, 
+    .container .col-md-3, 
+    .container .col-md-9 {
+    display: flex;
+    flex-direction: column;
+    }
+
+    .user-card {
+        padding: 20px;
+        border-radius: 5px;
+        margin-bottom: 20px;
+        color: white;
+        background: var(--surface-color);
+        border-radius: 1rem;
+        transition: all 0.3s ease;
+        position: relative;
+        flex-grow: 1; /* Allow the card to grow and fill available space */
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between; /* Ensures content is spaced inside the card */
+        width: 100%;
+        margin: 0;
+    }
+
+    .user .user-card:hover {
+        box-shadow: 0 10px 30px rgba(255, 255, 255, 0.555);
+    }
+    .user-user h4 {
+        margin-bottom: 10px;
+    }
   </style>
 </head>
 
@@ -66,7 +106,7 @@
   </header>
   <main class="main">
      <!-- payment Section -->
-     <section id="payment" class="payment section transparent-background">
+     <section id="user" class="user section transparent-background">
 
       <!-- Section Title -->
 <div class="section-title" data-aos="fade-up">
@@ -78,7 +118,7 @@
     <div class="row g-4 justify-content-center">
       <div class="col-lg-6">
         <!-- Student Button -->
-        <a href="adminlogin.html" class="payment-card" type="button">
+        <a href="adminlogin.html" class="user-card" type="button">
             <img src="../assets/img/admin.png" alt="student" class="stuimage">
             <h3>Admin</h3>
         </a>
@@ -86,7 +126,7 @@
   
       <!-- Non-Student Button -->
       <div class="col-lg-6">
-        <a href="participantlogin.html" class="payment-card" type="button">
+        <a href="participantlogin.html" class="user-card" type="button">
             <img src="../assets/img/runner.png" alt="Non-Student" class="nonstuimage">
             <h3>Participant</h3>
         </a>
