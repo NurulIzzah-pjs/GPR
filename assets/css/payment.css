@@ -756,7 +756,7 @@ label {
     font-size: 26px;
     text-align: center;
     margin-bottom: 25px;
-    color: #6daad6;
+    color: var(--accent-color);
     font-weight: 500;
     font-family: 'Poppins', sans-serif;
 }
@@ -863,7 +863,7 @@ li.resp-tab-item span .pic4 {
 /* Active state */
 .resp-tab-item span label:hover,
 .resp-tab-item span label:focus {
-    border-color: #6daad6; /* Highlight border on hover or focus */
+    border-color: var(--accent-color); /* Highlight border on hover or focus */
     background-color: rgba(255, 255, 255, 0.9); /* Optional: Add hover background */
 }
 
@@ -875,7 +875,7 @@ li.resp-tab-item.resp-tab-active span label {
     font-size: 26px;
     text-align: center;
     margin-bottom: 15px;
-    color: #6daad6;
+    color: var(--accent-color);
     font-weight: 500;
     font-family: 'Poppins', sans-serif;
 }
@@ -908,7 +908,7 @@ li.resp-tab-item.resp-tab-active span label {
 }
 
 .tab-for input[type="text"]:hover {
-    border: 1px solid #6daad6;
+    border: 1px solid var(--accent-color);
     transition: 0.5s all;
     -webkit-transition: 0.5s all;
     -moz-transition: 0.5s all;
@@ -983,7 +983,7 @@ input.text_box {
 }
 
 .tab-form-right input[type="password"]:hover {
-    border: 1px solid #6daad6;
+    border: 1px solid var(--accent-color);
     transition: 0.5s all;
     -webkit-transition: 0.5s all;
     -moz-transition: 0.5s all;
@@ -1033,7 +1033,7 @@ input.text_box {
 }
 
 .payment-info form input[type="submit"]:hover {
-    background: #6daad6;
+    background: var(--accent-color);
     transition: 0.5s all;
     -webkit-transition: 0.5s all;
     -moz-transition: 0.5s all;
@@ -1065,7 +1065,7 @@ input.text_box {
     width: 14px;
     height: 14px;
     display: inline-block;
-    border: 2px solid #6daad6;
+    border: 2px solid var(--accent-color);
     position: absolute;
     left: 0;
     top: 1px;
@@ -1120,7 +1120,7 @@ input.text_box {
     width: 15px;
     height: 15px;
     outline: none;
-    border: 3px solid #6daad6;
+    border: 3px solid var(--accent-color);
     background: #fff;
     cursor: pointer;
 }
@@ -1182,7 +1182,7 @@ label.checkbox {
 }
 
 .radio input:checked + i {
-    border: 3px solid #6daad6;
+    border: 3px solid var(--accent-color);
     background: #fff;
 }
 
@@ -1201,11 +1201,11 @@ label.checkbox {
     color: #fff;
     font-weight: 600;
     text-transform: uppercase;
-    background: #6daad6;
+    background: var(--accent-color);
 }
 
 .payment-info a:hover {
-    background: #6daad6;
+    background: var(--accent-color);
 }
 
 .radio-btns {
@@ -1305,7 +1305,7 @@ label.checkbox {
 }
 
 .user-right input[type="submit"]:hover {
-    background: #6daad6;
+    background: var(--accent-color);
     transition: 0.5s all;
     -webkit-transition: 0.5s all;
     -moz-transition: 0.5s all;
