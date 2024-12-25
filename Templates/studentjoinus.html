@@ -64,20 +64,32 @@
                         <input type="text" placeholder="Enter your number phone" id="phone" name="phone"  required>
                     </div>
                     <div class="col-md-6">
-                        <label for="nomatric" class="u-label">No.Matric</label>
-                        <input type="text" placeholder="Enter your No. Matric" id="nomatric" name="nomatric"  required>
+                        <label for="ic" class="u-label">Identification Card</label>
+                        <input type="text" placeholder="Enter your IC" id="ic" name="ic" required>
                     </div>
                     <div class="col-md-6">
-                        <label for="school" class="u-label">School</label>
-                        <input type="text" placeholder="Enter your school" id="school" name="school"  required>
+                        <label for="role" class="u-label">Role</label>
+                        <select id="role" name="role" required>
+                            <option value="" disabled selected>Select your role</option>
+                            <option value="student">Student</option>
+                            <option value="outsider">Non-Student</option>
+                        </select>
                     </div>
                     <div class="col-md-6">
-                        <label for="package" class="u-label">Campus</label>
-                        <select id="package" name="package" required>
+                        <label for="nomatric" class="u-label" name="nomatric"  style="display: none;">No.Matric</label>
+                        <input type="text" placeholder="Enter your No. Matric" id="nomatric" name="nomatric"  style="display: none;" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="school" class="u-label" style="display: none;">School</label>
+                        <input type="text" placeholder="Enter your school" id="school" name="school"  style="display: none;" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="campus" class="u-label" style="display: none;">Campus</label>
+                        <select id="campus" name="campus"  style="display: none;"required>
                             <option value="" disabled selected>Select your campus</option>
-                            <option value="basic">USM INDUK</option>
-                            <option value="lite">USM KEJURUTERAAN</option>
-                            <option value="pro">USM KESIHATAN</option>
+                            <option value="induk">USM INDUK</option>
+                            <option value="kejut">USM KEJURUTERAAN</option>
+                            <option value="kesit">USM KESIHATAN</option>
                         </select>
                     </div>
                     <div class="col-md-6">
@@ -118,7 +130,53 @@
     </div>
   </footer>
 
+  <script>
+    document.getElementById('role').addEventListener('change', function() {
+        const nomatric = document.getElementById('nomatric');
+        const nomatricLabel = document.querySelector('label[for="nomatric"]'); // Label for "No. Matric"
+        const school = document.getElementById('school');
+        const schoolLabel = document.querySelector('label[for="school"]'); // Label for "School"
+        const campus = document.getElementById('campus');
+        const campusLabel = document.querySelector('label[for="campus"]'); // Label for "Campus"
+        const packageSelect = document.getElementById('package'); // Package select field
 
+        // Package options
+        const studentPackages = `
+            <option value="" disabled selected>Select your package</option>
+            <option value="basic">GLOW-RIOUS STARTER</option>
+            <option value="lite">GLOW-RIOUS LITE</option>
+            <option value="pro">GLOW-RIOUS PRO</option>
+        `;
+        const nonStudentPackages = `
+            <option value="" disabled selected>Select your package</option>
+            <option value="pro">GLOW-RIOUS PRO</option>
+        `;
+
+        if (this.value === 'student') {
+            // Show fields for "student"
+            nomatric.style.display = 'block';
+            nomatricLabel.style.display = 'block';
+            school.style.display = 'block';
+            schoolLabel.style.display = 'block';
+            campus.style.display = 'block';
+            campusLabel.style.display = 'block';
+            packageSelect.innerHTML = studentPackages; // Update package options for students
+        } else {
+            // Hide fields for non-student
+            nomatric.style.display = 'none';
+            nomatricLabel.style.display = 'none';
+            school.style.display = 'none';
+            schoolLabel.style.display = 'none';
+            campus.style.display = 'none';
+            campusLabel.style.display = 'none';
+            packageSelect.innerHTML = nonStudentPackages; // Update package options for non-students
+        }
+    });
+</script>
+
+
+
+  </script>
 
 </body>
 </html>
