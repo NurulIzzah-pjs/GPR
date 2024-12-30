@@ -105,3 +105,12 @@ DROP FOREIGN KEY schedules_ibfk_1;
 
 ALTER TABLE schedules 
 DROP COLUMN EventID;
+
+--insert data into schedules table
+INSERT INTO Schedules (ActivityName, ActivityStart, ActivityEnd, Location)
+VALUES
+('Registration Opens', '2024-12-14 19:30:00', '2024-12-14 20:00:00', 'In front of The Brick'),
+('Warm Up', '2024-12-14 20:00:00', '2024-12-14 20:15:00', 'In front of The Brick'),
+('Flag Off', '2024-12-14 20:15:00', '2024-12-14 20:20:00', 'Starting Line'),
+('Participant Finish', '2024-12-14 22:00:00', '2024-12-14 22:15:00', 'Finish Line'),
+('Medal Distribution', '2024-12-14 22:15:00', '2024-12-14 22:30:00', 'Medal Counter');
