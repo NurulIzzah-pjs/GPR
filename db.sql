@@ -84,3 +84,24 @@ DROP COLUMN PackageName;
 -- add registration date column
 ALTER TABLE Participant
 ADD COLUMN RegistrationDate DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP;
+
+-- remove adminID from attendance table
+ALTER TABLE Attendance
+DROP FOREIGN KEY attendance_ibfk_2;
+
+ALTER TABLE Attendance
+DROP COLUMN AdminID;
+
+-- remove adminID from eventsdetails table
+ALTER TABLE eventdetails
+DROP FOREIGN KEY eventdetails_ibfk_1;
+
+ALTER TABLE eventdetails
+DROP COLUMN AdminID;
+
+-- remove eventID from schedules
+ALTER TABLE schedules
+DROP FOREIGN KEY schedules_ibfk_1;
+
+ALTER TABLE schedules 
+DROP COLUMN EventID;
