@@ -77,7 +77,10 @@ CREATE TABLE Schedules (
 ALTER TABLE Package
 MODIFY PackageName VARCHAR(50);
 
-
 -- remove column package name
 ALTER TABLE Participant
 DROP COLUMN PackageName;
+
+-- add registration date column
+ALTER TABLE Participant
+ADD COLUMN RegistrationDate DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP;
