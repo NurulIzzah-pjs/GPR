@@ -114,3 +114,13 @@ VALUES
 ('Flag Off', '2024-12-14 20:15:00', '2024-12-14 20:20:00', 'Starting Line'),
 ('Participant Finish', '2024-12-14 22:00:00', '2024-12-14 22:15:00', 'Finish Line'),
 ('Medal Distribution', '2024-12-14 22:15:00', '2024-12-14 22:30:00', 'Medal Counter');
+
+
+-- change data type attendancestatus
+ALTER TABLE Attendance
+MODIFY AttendanceStatus BOOLEAN NOT NULL;
+
+-- insert data into eventdetails table
+INSERT INTO EventDetails (EventName, Description, Location, StartDate, EndDate)
+VALUES 
+('Glow Paint Run', 'A fun and exciting glow-themed event', 'The Bricks, USM', '2024-12-15 20:00:00', '2024-12-15 23:00:00');
