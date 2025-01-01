@@ -37,23 +37,24 @@ if (isset($_SESSION['user_username'])) {
 
 // Fetch the package details for the user
 $package_query = "SELECT package.PackageName, package.PackagePrice
-FROM participant
-JOIN package ON participant.PackageName = package.PackageCode
+FROM package
+JOIN participant ON package.PackageID = participant.PackageID
 WHERE participant.Username = ?";
 $stmt = $conn->prepare($package_query);
 
 if ($stmt) {
-$stmt->bind_param("s", $user_username); 
-$stmt->execute();
-$package_result = $stmt->get_result();
+    $stmt->bind_param("s", $user_username); 
+    $stmt->execute();
+    $package_result = $stmt->get_result();
 
-if ($package_result && $package_result->num_rows > 0) {
-$package = $package_result->fetch_assoc();
-$package_name = $package['PackageName']; // Get package name
-$price = $package['PackagePrice']; // Get package price
-}
+    if ($package_result && $package_result->num_rows > 0) {
+        $package = $package_result->fetch_assoc();
+        $package_name = $package['PackageName']; // Get package name
+        $price = $package['PackagePrice']; // Get package price
+    }
 
-$stmt->close();
+    $stmt->close();
+
 }
 // Fetch QR code path for the logged-in user
 $qrQuery = "SELECT QRCodeStu FROM participant WHERE Username = ?";
