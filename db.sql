@@ -124,3 +124,19 @@ MODIFY AttendanceStatus BOOLEAN NOT NULL;
 INSERT INTO EventDetails (EventName, Description, Location, StartDate, EndDate)
 VALUES 
 ('Glow Paint Run', 'A fun and exciting glow-themed event', 'The Bricks, USM', '2024-12-15 20:00:00', '2024-12-15 23:00:00');
+
+-- add PackageCode in package table
+ALTER TABLE Package
+ADD COLUMN PackageCode VARCHAR(100) NOT NULL;
+
+-- modify packageName in package table
+ALTER TABLE Package
+MODIFY PackageName VARCHAR(100) NOT NULL;
+
+-- insert data into package table
+INSERT INTO Package (PackageName, PackagePrice, PackageCode)
+VALUES 
+('GLOW-RIOUS STARTER', 15.00, 'basic'),
+('GLOW-RIOUS LITE', 30.00, 'lite'),
+('GLOW-RIOUS PRO', 50.00, 'pro');
+
