@@ -4,9 +4,9 @@ session_start();
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
     include "connection.php"; // Adjust the path as necessary
     
-    if (!$conn) {
-        die("Database connection failed: " . mysqli_connect_error());
-    }
+    if ($conn->connect_error) {
+      error_log("Database connection failed: " . $conn->connect_error);
+  }  
 
     $username = mysqli_real_escape_string($conn, $_POST['username']);
     $password = mysqli_real_escape_string($conn, $_POST['pass']);
@@ -18,20 +18,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
     $row = $result->fetch_assoc();
 
     if ($row) {
-        if (password_verify($password, $row["Password"])) {
+      if ($password == $row["AdminPassword"]) {
             $_SESSION['user_username'] = $username;
-            header("Location: participant_dash.php?" . htmlspecialchars(SID));
+            header("Location: admin_dashboard.html");
             exit();
         } else {
             echo '<script>
             alert("Invalid username or password!");
-            window.location.href = "participantlogin.php";
+            window.location.href = "adminlogin.php";
             </script>';
         }
     } else {
         echo '<script>
         alert("Invalid username or password!");
-        window.location.href = "participantlogin.php";
+        window.location.href = "adminlogin.php";
         </script>';
     }
     $stmt->close();
@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
   <meta name="keywords" content="">
 
   <!-- Favicons -->
-  <link href=".//assets/img/favicon.png" rel="icon">
+  <link href="../assets/img/favicon.png" rel="icon">
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com" rel="preconnect">
@@ -96,6 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
     <section id="login" class="login section transparent-background">
        <div class="container form">
         <div class="section-title">
+          <h2>Admin</h2>
           <h2>Log In</h2>
           <p>Please log in using your username and password</p>
         </div>
