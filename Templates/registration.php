@@ -30,58 +30,79 @@ if (isset($_POST['submit'])) {
     // Check if the user already exists
     $sql = "SELECT * FROM participant WHERE IdentificationNum = ?";
     $stmt = $conn->prepare($sql);
+    if (!$stmt) {
+        die("SQL error in prepare: " . $conn->error);
+    }
     $stmt->bind_param("s", $ic);
     $stmt->execute();
     $result = $stmt->get_result();
 
     if ($result->num_rows === 0) {
-        // Hash the password
-        $hash = password_hash($password, PASSWORD_DEFAULT);
-
-        // Generate the QR code and save it
-        $qrCodeDirectory = __DIR__ . "/qrcodes";
-        if (!is_dir($qrCodeDirectory)) {
-            mkdir($qrCodeDirectory, 0777, true); // Create the directory if it doesn't exist
-        }
-
-        // File path for the QR code
-        $qrFileName = $qrCodeDirectory . DIRECTORY_SEPARATOR . $ic . ".png";
-        $qrData = "Name: $name, IC: $ic"; // Custom data to encode in the QR code
-        QRcode::png($qrData, $qrFileName, QR_ECLEVEL_L, 4);
-        $relativeQRPath = "qrcodes/" . $ic . ".png"; // Store relative path for portability
-
-        // Insert participant data into the database
-        $sql = "INSERT INTO participant (Name, PhoneNum, IdentificationNum, Role, MatricNum, Campus, School, PackageName, Username, Password, QRCodeStu)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        // Verify that the selected package exists in the package table and retrieve its ID
+        $sql = "SELECT PackageID FROM package WHERE PackageCode = ?";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param(
-            "sssssssssss", 
-            $name, 
-            $phonenum, 
-            $ic, 
-            $role, 
-            $matricnum, 
-            $campus, 
-            $school, 
-            $package, 
-            $username, 
-            $hash, 
-            $relativeQRPath
-        );
+        if (!$stmt) {
+            die("SQL error in prepare (package check): " . $conn->error);
+        }
+        $stmt->bind_param("s", $package);
+        $stmt->execute();
+        $packageResult = $stmt->get_result();
 
-        if ($stmt->execute()) {
+        if ($packageResult->num_rows > 0) {
+            // Generate hashed password and QR code
+            $hash = password_hash($password, PASSWORD_DEFAULT);
+            $qrCodeDirectory = __DIR__ . "/qrcodes";
+            if (!is_dir($qrCodeDirectory)) {
+                mkdir($qrCodeDirectory, 0777, true);
+            }
 
-            // Redirect to payment page
-            header("Location: payment.html");
-            exit();
+            $qrFileName = $qrCodeDirectory . DIRECTORY_SEPARATOR . $ic . ".png";
+            $qrData = "Name: $name, IC: $ic";
+            QRcode::png($qrData, $qrFileName, QR_ECLEVEL_L, 4);
+            $relativeQRPath = "qrcodes/" . $ic . ".png";
+
+            // Fetch the PackageID
+            $row = $packageResult->fetch_assoc();
+            $packageID = $row['PackageID'];
+
+            // Insert participant data into the database
+            $sql = "INSERT INTO participant (Name, PhoneNum, IdentificationNum, Role, MatricNum, Campus, School, PackageID, Username, Password, QRCodeStu)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            $stmt = $conn->prepare($sql);
+            if (!$stmt) {
+                die("SQL error in prepare (insert): " . $conn->error);
+            }
+            $stmt->bind_param(
+                "sssssssisss",
+                $name,
+                $phonenum,
+                $ic,
+                $role,
+                $matricnum,
+                $campus,
+                $school,
+                $packageID,
+                $username,
+                $hash,
+                $relativeQRPath
+            );
+
+            if ($stmt->execute()) {
+                header("Location: payment.html");
+                exit();
+            } else {
+                echo '<script>
+                alert("Failed to register. Please try again.");
+                window.location.href = "registration.php";
+                </script>';
+            }
         } else {
             echo '<script>
-            alert("Failed to register. Please try again.");
+            alert("Invalid package selected.");
             window.location.href = "registration.php";
             </script>';
         }
     } else {
-        // User already exists
         echo '<script>
         alert("User already exists!!!");
         window.location.href = "participantlogin.php";
