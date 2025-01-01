@@ -173,6 +173,7 @@ if (isset($_POST['submit'])) {
         <div class="row gy-4">
             <div class="col-lg-6">
                 <form action="registration.php" method="POST" class="php-email-form">
+                <input type="hidden" name="package" value="<?php echo $package; ?>">
                     <div class="col-md-6">
                         <label for="name" class="u-label">Name</label>
                         <input type="text" placeholder="Enter your Name" id="name" name="name" required>
@@ -214,10 +215,11 @@ if (isset($_POST['submit'])) {
                         <label for="package" class="u-label">Package</label>
                         <select id="package" name="package" required>
                             <option value="" disabled selected>Select your package</option>
-                            <option value="basic">GLOW-RIOUS STARTER</option>
-                            <option value="lite">GLOW-RIOUS LITE</option>
-                            <option value="pro">GLOW-RIOUS PRO</option>
+                            <option value="basic" <?php if(isset($_GET['package']) && $_GET['package'] == 'basic') echo 'selected'; ?>>GLOW-RIOUS STARTER</option>
+                            <option value="lite" <?php if(isset($_GET['package']) && $_GET['package'] == 'lite') echo 'selected'; ?>>GLOW-RIOUS LITE</option>
+                            <option value="pro" <?php if(isset($_GET['package']) && $_GET['package'] == 'pro') echo 'selected'; ?>>GLOW-RIOUS PRO</option>
                         </select>
+
                     </div>
                     <div class="col-md-6">
                         <label for="username" class="u-label">Username</label>
@@ -248,7 +250,7 @@ if (isset($_POST['submit'])) {
     </div>
   </footer>
 
-  <script>
+<script>
     document.getElementById('role').addEventListener('change', function() {
     const matricnum = document.getElementById('matricnum');
     const matricnumLabel = document.querySelector('label[for="matricnum"]'); // Label for "No. Matric"
@@ -257,17 +259,27 @@ if (isset($_POST['submit'])) {
     const campus = document.getElementById('campus');
     const campusLabel = document.querySelector('label[for="campus"]'); // Label for "Campus"
     const packageSelect = document.getElementById('package'); // Package select field
+    const selectedPackage = packageSelect.value;  // Store the selected package
 
-    // Package options
+    // // Package options
+    // const studentPackages = `
+    //     <option value="" disabled selected>Select your package</option>
+    //     <option value="basic">GLOW-RIOUS STARTER</option>
+    //     <option value="lite">GLOW-RIOUS LITE</option>
+    //     <option value="pro">GLOW-RIOUS PRO</option>
+    // `;
     const studentPackages = `
-        <option value="" disabled selected>Select your package</option>
-        <option value="basic">GLOW-RIOUS STARTER</option>
-        <option value="lite">GLOW-RIOUS LITE</option>
-        <option value="pro">GLOW-RIOUS PRO</option>
+        <option value="basic" ${selectedPackage === 'basic' ? 'selected' : ''}>GLOW-RIOUS STARTER</option>
+        <option value="lite" ${selectedPackage === 'lite' ? 'selected' : ''}>GLOW-RIOUS LITE</option>
+        <option value="pro" ${selectedPackage === 'pro' ? 'selected' : ''}>GLOW-RIOUS PRO</option>
     `;
+    // const nonStudentPackages = `
+    //     <option value="" disabled selected>Select your package</option>
+    //     <option value="pro">GLOW-RIOUS PRO</option>
+    // `;
+    // Package options for non-student
     const nonStudentPackages = `
-        <option value="" disabled selected>Select your package</option>
-        <option value="pro">GLOW-RIOUS PRO</option>
+        <option value="pro" ${selectedPackage === 'pro' ? 'selected' : ''}>GLOW-RIOUS PRO</option>
     `;
 
     if (this.value === 'student') {
@@ -298,10 +310,6 @@ if (isset($_POST['submit'])) {
 });
 
 </script>
-
-
-
-  </script>
 
 </body>
 </html>
