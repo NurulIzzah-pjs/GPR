@@ -23,6 +23,9 @@
   <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
   <link href="../assets/vendor/aos/aos.css" rel="stylesheet">
 
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
   <!-- Main CSS File -->
   <link href="../assets/css/admin.css" rel="stylesheet">
@@ -77,7 +80,6 @@
 
     .event-card {
         padding: 2rem;
-        border-radius: 5px;
         margin-bottom: 20px;
         color: white;
         background: var(--surface-color);
@@ -156,43 +158,67 @@
             text-align: center;
     }
 
-    /* Table Styling */
-.schedule-table {
-    width: 100%; /* Full width inside the card */
-    border-collapse: collapse; /* Merge table borders */
-    margin: 10px 0;
-    font-size: 14px; /* Adjust table font size */
-    text-align: left; /* Align text to the left */
-    background-color: rgba(255, 255, 255, 0.301); /* Dark background for table */
-    border-radius: 8px; /* Optional: Add rounded corners */
-    overflow: hidden; /* Ensure border radius applies to content */
-}
+        /* Table Styling */
+    .schedule-table {
+        width: 100%; /* Full width inside the card */
+        border-collapse: collapse; /* Merge table borders */
+        margin: 10px 0;
+        font-size: 14px; /* Adjust table font size */
+        text-align: left; /* Align text to the left */
+        background-color: rgba(255, 255, 255, 0.301); /* Dark background for table */
+        border-radius: 8px; /* Optional: Add rounded corners */
+        overflow: hidden; /* Ensure border radius applies to content */
+    }
 
-.schedule-table th {
-    background-color: rgba(0, 0, 0, 0.6); /* Darker background for headers */
-    color: white; /* Header text color */
-    font-weight: bold; /* Bold header */
-    padding: 12px 8px; /* Spacing */
-    border-bottom: 1px solid rgb(0, 0, 0); /* Light cell borders */
+    .schedule-table th {
+        background-color: rgba(0, 0, 0, 0.6); /* Darker background for headers */
+        color: white; /* Header text color */
+        font-weight: bold; /* Bold header */
+        padding: 12px 8px; /* Spacing */
+        border-bottom: 1px solid rgb(0, 0, 0); /* Light cell borders */
 
-}
+    }
 
-.schedule-table td {
-    background-color: rgba(255, 255, 255, 0.5); /* Lighter background for cells */
-    padding: 10px 8px; /* Cell spacing */
-    color: rgb(0, 0, 0); /* Cell text color */
-    
-}
+    .schedule-table td {
+        background-color: rgba(255, 255, 255, 0.5); /* Lighter background for cells */
+        padding: 10px 8px; /* Cell spacing */
+        color: rgb(0, 0, 0); /* Cell text color */
+        
+    }
 
-/* Alternating Row Colors */
-.schedule-table tbody tr:nth-child(even) {
-    background-color: rgba(255, 255, 255, 0.6); /* Slightly different for even rows */
-}
+    /* Alternating Row Colors */
+    .schedule-table tbody tr:nth-child(even) {
+        background-color: rgba(255, 255, 255, 0.6); /* Slightly different for even rows */
+    }
 
-/* Hover Effect */
-.schedule-table tr:hover {
-    background-color: rgba(255, 255, 255, 0.2); /* Highlight row on hover */
-}
+    /* Hover Effect */
+    .schedule-table tr:hover {
+        background-color: rgba(255, 255, 255, 0.2); /* Highlight row on hover */
+    }
+
+    /* Ensure the video container aligns properly */
+    .video-container {
+        width: 90%; /* Take up 90% of the event card's width */
+        height: 0; /* Set height initially to 0 */
+        padding-top: 90%; /* Maintain a 4:3 aspect ratio using padding */
+        margin: 0 auto; /* Center the video wrapper */
+        border: 2px solid #fff; /* White border for visibility */
+        border-radius: 10px; /* Rounded corners for a smooth look */
+        overflow: hidden; /* Prevent video overflow */
+        background-color: #000; /* Black background for contrast */
+        position: relative; /* Allow video to position within */
+    }
+
+    /* Style the video element */
+    #video {
+        position: absolute; /* Fill the video-wrapper */
+        top: 0;
+        left: 0;
+        width: 100%; /* Fully expand to wrapper's width */
+        height: 100%; /* Fully expand to wrapper's height */
+        object-fit: cover; /* Ensure the video scales and covers the container */
+    }
+
 
 </style>
 
@@ -209,10 +235,10 @@
         <div class="col-md-6">
             <div class="event-card">
                 <h3 class="card-title">Event Information</h3>
-                <p style="font-size: 2.5rem; text-align: center;"><strong>Glow Paint Run</strong></p>
-                <p style="font-size: 1.8rem; text-align: center;"><strong>14th December 2024</strong></p>
-                <p style="font-size: 1.8rem; text-align: center;"><strong>8.00 pm - 11.00 pm</strong></p>
-                <p style="font-size: 1.8rem; text-align: center;"><strong>The Bricks, USM</strong></p>
+                <p id="eventName" style="font-size: 2.5rem; text-align: center;"><strong></strong></p>
+                <p id="eventDate" style="font-size: 1.8rem; text-align: center;"><strong></strong></p>
+                <p id="eventTime" style="font-size: 1.8rem; text-align: center;"><strong></strong></p>
+                <p id="eventLocation" style="font-size: 1.8rem; text-align: center;"><strong></strong></p>
                 <a href="event_details.html">
                 <button class="btn btn-secondary">Edit Details</strong></button>
                 </a>
@@ -230,32 +256,8 @@
                             <th scope="col">Location</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>7.30 PM</td>
-                            <td>Registration Opens</td>
-                            <td>In front of The Brick</td>
-                        </tr>
-                        <tr>
-                            <td>8.00 PM</td>
-                            <td>Warm Up</td>
-                            <td>In front of The Brick</td>
-                        </tr>
-                        <tr>
-                            <td>8.15 PM</td>
-                            <td>Flag Off</td>
-                            <td>Starting Line</td>
-                        </tr>
-                        <tr>
-                            <td>10.00 PM</td>
-                            <td>Participant Finish</td>
-                            <td>Finish Line</td>
-                        </tr>
-                        <tr>
-                            <td>10.15 PM</td>
-                            <td>Medal Distibution</td>
-                            <td>Medal Counter</td>
-                        </tr>
+                    <tbody id="scheduleTableBody">
+                        <!-- Dynamic rows will be inserted here -->
                     </tbody>
                 </table>
 
@@ -270,19 +272,27 @@
     <div class="row">
         <div class="col-md-3">
             <div class="event-card">
-                <h3 class="card-title">Total Participants</h3>
-                <p style="font-size: 45px; text-align: center; margin-top: -40px;"><strong>51</strong></p>
+            <h3 class="card-title">Total Participants</h3>
+            <p style="font-size: 45px; text-align: center; margin-top: -40px;"><strong id="totalParticipants"></strong></p>
             </div>
 
             <div class="event-card">
                 <h3 class="card-title">Scan QR Code</h3>
                 <div style="text-align: center;">
-                <!-- Camera icon as a button -->
-                <button style="border: none; background: none; cursor: pointer;">
-                <i class="fas fa-camera" style="font-size: 60px; color: #ffffff; margin-top: -90px;"></i>
+                <!-- Camera button to open the scanner -->
+                <button id="startScanner" style="border: none; background: none; cursor: pointer;">
+                    <i class="fas fa-camera" style="font-size: 60px; color: #ffffff; margin-top: -90px;"></i>
                 </button>
-                <!-- <p style="font-size: 20px; text-align: center; margin-top: -15px;"><strong>Scan QR Code</strong></p> -->
+            
+            <div id="scannerContainer" style="display: none; text-align: center; margin-top: 20px;">
+            <div class="video-container">
+                <video id="video"></video>
+            </div>                
+            <p id="scanResult" style="color: white; font-size: 18px; margin-top: 10px;">Scanning...</p>
+                <button id="stopScanner" style="margin-top: 10px; padding: 8px 15px; background: #e74c3c; color: white; border: none; border-radius: 5px; cursor: pointer;">Stop Scanner</button>
             </div>
+        </div>                                             
+
 
         </div>
         </div>
@@ -488,7 +498,236 @@ var registrationsByTicketTypeChart = new Chart(ctx2, {
     },
     plugins: [ChartDataLabels] // Register the Data Labels plugin
 });
+
+// Fetch LINE GRAPH data
+fetch('../api/data_admindashboard.php?type=line')
+    .then(response => response.json())
+    .then(data => {
+        
+        // map the data to extract registration dates and cumulative participant counts
+        const labels = data.map(item => item.RegistrationDate); // Dates in day.month.year format
+        const cumulativeCounts = data.map(item => item.CumulativeCount); // Cumulative counts
+
+        // Update the chart data for the line graph
+        registrationTrendChart.data.labels = labels;
+        registrationTrendChart.data.datasets[0].data = cumulativeCounts;
+        registrationTrendChart.update();
+    })
+    .catch(error => console.error('Error fetching line graph data:', error));
+
+
+// fetch BAR GRAPH data
+fetch('../api/data_admindashboard.php?type=bar')
+    .then(response => response.json())
+    .then(data => {
+
+        // map the data to extract package names and participant counts
+        const labels = data.map(item => item.PackageName);
+        const counts = data.map(item => item.ParticipantCount);
+
+        // update the chart data for the bar graphs
+        registrationsByTicketTypeChart.data.labels = labels;
+        registrationsByTicketTypeChart.data.datasets[0].data = counts;
+        registrationsByTicketTypeChart.update();
+    })
+    .catch(error => console.error('Error fetching bar graph data:', error));
+
+// fetch PIE CHART data
+fetch('../api/data_admindashboard.php?type=pie')
+    .then(response => response.json())
+    .then(data => {
+
+        // map the data to extract labels and counts for each category
+        const labels = data.map(item => item.Label);
+        const counts = data.map(item => item.Count);
+
+        // Update the chart data for the pie chart
+        checkInStatusChart.data.labels = labels;
+        checkInStatusChart.data.datasets[0].data = counts;
+        checkInStatusChart.update();
+    })
+    .catch(error => console.error('Error fetching pie chart data:', error));
+
+
+ // Fetch schedule data from the database
+    fetch('../api/data_admindashboard.php?type=schedule')
+        .then(response => response.json())
+        .then(data => {
+
+            // target the table body to populate schedule rows dynamically
+            const tableBody = document.getElementById('scheduleTableBody');
+            tableBody.innerHTML = ''; // Clear existing rows in the table
+
+
+            // loop through the fetched data and append rows to the table
+            data.forEach(schedule => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${schedule.StartTime}</td>
+                    <td>${schedule.ActivityName}</td>
+                    <td>${schedule.Location}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+        })
+        .catch(error => console.error('Error fetching schedule data:', error));
+
+// Fetch EVENT DETAILS from database
+    fetch('../api/data_admindashboard.php?type=eventDetails')
+    .then(response => {
+        console.log('Response:', response); // debugging: log the parsed data
+        return response.json();
+    })
+    .then(data => {
+        console.log('Data:', data); // Log the fetched data
+        if (data.EventName) {
+
+            // populate events details dynamically in the html
+            document.getElementById('eventName').innerHTML = `<strong>${data.EventName}</strong>`;
+            document.getElementById('eventDate').innerHTML = `<strong>${data.EventDate}</strong>`;
+            document.getElementById('eventTime').innerHTML = `<strong>${data.StartTime} - ${data.EndTime}</strong>`;
+            document.getElementById('eventLocation').innerHTML = `<strong>${data.Location}</strong>`;
+        } else {
+            console.error('No data found!');
+        }
+    })
+    .catch(error => console.error('Error fetching event details:', error));
+
+    // fetch total participants from database
+    document.addEventListener('DOMContentLoaded', () => {
+    fetch('../api/data_admindashboard.php?type=totalParticipants')
+        .then(response => response.json())
+        .then(data => {
+            const totalParticipantsElement = document.getElementById('totalParticipants');
+            if (data.TotalParticipants !== undefined) {
+
+                // display the total participants in the targeted element
+                totalParticipantsElement.textContent = data.TotalParticipants; // Update the element with the total participants
+            } else {
+
+                // default to 0 if no data is returned
+                totalParticipantsElement.textContent = '0'; // Default to 0 if no data
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching total participants:', error); // handle fetch errors
+            document.getElementById('totalParticipants').textContent = 'Error'; // show error message
+        });
+});
+
+
 </script>
+
+<script>
+
+// QR code scanning
+
+    // target the required html elements for qr code scanning
+    const startScanner = document.getElementById('startScanner');
+    const stopScanner = document.getElementById('stopScanner');
+    const scannerContainer = document.getElementById('scannerContainer');
+    const video = document.getElementById('video');
+    const scanResult = document.getElementById('scanResult');
+
+    // variable to hold the video stream
+    let videoStream;
+
+    // Start the camera and QR code scanning
+    startScanner.addEventListener('click', async () => {
+        try {
+            // Access the admin's camera - use WebRTC for camera access
+            videoStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
+            video.srcObject = videoStream;
+            video.setAttribute('playsinline', true); // For iOS compatibility
+            video.play();
+
+            // show the scanner container
+            scannerContainer.style.display = 'block';
+
+            // Continuously scan for QR codes
+            const scanQRCode = () => {
+                if (video.readyState === video.HAVE_ENOUGH_DATA) {
+                    const canvas = document.createElement('canvas');
+                    canvas.width = video.videoWidth;
+                    canvas.height = video.videoHeight;
+                    const context = canvas.getContext('2d');
+                    context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+                    const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+                    
+                    // use jsQR library for QR code decoding
+                    const qrCode = jsQR(imageData.data, canvas.width, canvas.height);
+                    if (qrCode) {
+                        scanResult.textContent = `QR Code: ${qrCode.data}`;
+                        confirmAttendance(qrCode.data); // Send the QR code data to the backend
+                        stopScanner.click(); // Automatically stop the scanner after successful scan
+                        return;
+                    }
+                }
+                requestAnimationFrame(scanQRCode);
+            };
+
+            scanQRCode();
+        } catch (error) {
+            // handle camera access errors
+            console.error('Error accessing camera:', error);
+            scanResult.textContent = 'Unable to access camera.';
+        }
+    });
+
+    // Stop the scanner and turn off the camera
+    stopScanner.addEventListener('click', () => {
+        videoStream.getTracks().forEach(track => track.stop());
+        scannerContainer.style.display = 'none';
+        scanResult.textContent = 'Scanning...';
+    });
+
+    // Send the scanned QR code data to the backend
+function confirmAttendance(qrCodeData) {
+    fetch('../api/confirm_attendance.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ qrCode: qrCodeData })
+    })
+    .then(response => response.json())
+.then(data => {
+    console.log('API Response:', data); // Log the backend response
+    if (data.success) {
+        Swal.fire({
+            icon: 'success',
+    title: '<span style="color: #28a745; font-weight: normal; text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.8);">Attendance Confirmed</span>',
+html: `
+                <p><strong>Participant:</strong> ${data.participantName}</p>
+                <p><strong>Package:</strong> ${data.packageName}</p>
+            `,
+            confirmButtonText: 'OK',
+            confirmButtonColor: '#28a745'
+        });
+    } else {
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: data.message,
+            confirmButtonText: 'Try Again',
+            confirmButtonColor: '#dc3545'
+        });
+    }
+})
+.catch(error => {
+    console.error('Fetch Error:', error); // Log fetch errors
+    Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'An unexpected error occurred. Please try again.',
+        confirmButtonText: 'OK',
+        confirmButtonColor: '#dc3545'
+    });
+});
+
+}
+
+</script>
+
 </div>
 </section>
 </main>
@@ -499,6 +738,7 @@ var registrationsByTicketTypeChart = new Chart(ctx2, {
   <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="../assets/vendor/php-email-form/validate.js"></script>
   <script src="../assets/vendor/aos/aos.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jsqr/dist/jsQR.js"></script>
 
 
 </body>
