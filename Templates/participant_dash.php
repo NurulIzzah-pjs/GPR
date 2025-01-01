@@ -75,6 +75,17 @@ if ($stmt) {
     $stmt->close();
 }
 
+//Fetch schedule details
+$schedule_query = "SELECT ActivityName, ActivityStart, ActivityEnd, Location FROM schedules ORDER BY ActivityStart";
+$schedule_result = $conn->query($schedule_query);
+$schedules = array();
+
+if ($schedule_result && $schedule_result->num_rows > 0) {
+    while ($row = $schedule_result->fetch_assoc()) {
+        $schedules[] = $row;
+    }
+}
+
 
 $conn->close();
 ?>
@@ -378,7 +389,25 @@ $conn->close();
           <div class="col-12 w-100">
               <div class="personal-card">
                   <h3 class="card-title">Event Schedules</h3>
-                  <table class="schedule-table w-100">
+                  <table class="table table-striped">
+                      <thead>
+                          <tr>
+                              <th>Time</th>
+                              <th>Activity</th>
+                              <th>Location</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <?php foreach ($schedules as $schedule): ?>
+                              <tr>
+                                  <td><?php echo date('h:i A', strtotime($schedule['ActivityStart'])); ?></td>
+                                  <td><?php echo htmlspecialchars($schedule['ActivityName']); ?></td>
+                                  <td><?php echo htmlspecialchars($schedule['Location']); ?></td>
+                              </tr>
+                          <?php endforeach; ?>
+                      </tbody>
+                  </table>
+                  <!-- <table class="schedule-table w-100">
                       <thead>
                           <tr>
                               <th scope="col">Time</th>
@@ -413,7 +442,7 @@ $conn->close();
                               <td>Medal Counter</td>
                           </tr>
                       </tbody>
-                  </table>
+                  </table> -->
               </div>
           </div>
       </div>
