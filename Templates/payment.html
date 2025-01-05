@@ -70,119 +70,107 @@
                             <div class="tab-1 resp-tab-content" aria-labelledby="tab_item-1">
                                 <div class="payment-info">
                                     <h3>Online Banking</h3>
+                                    <form method="POST" action="/GPR/api/process_payment.php">
                                     <div class="radio-btns">
                                         <div class="swit">
                                             <div class="check_box">
-                                                <div class="radio"> <label><input type="radio" name="radio" checked=""><i></i>Ambank Berhad</label> </div>
+                                                <div class="radio"> <label><input type="radio" name="payment_method" value="Ambank" checked><i></i>Ambank Berhad</label> </div>
                                             </div>
                                             <div class="check_box">
-                                                <div class="radio"> <label><input type="radio" name="radio"><i></i>Bank Islam</label> </div>
+                                                <div class="radio"> <label><input type="radio" name="payment_method" value="BankIslam"><i></i>Bank Islam</label> </div>
                                             </div>
                                             <div class="check_box">
-                                                <div class="radio"> <label><input type="radio" name="radio"><i></i>Bank Kerjasama Rakyat</label> </div>
+                                                <div class="radio"> <label><input type="radio" name="payment_method" value="BankKerjasamaRakyat"><i></i>Bank Kerjasama Rakyat</label> </div>
                                             </div>
                                             <div class="check_box">
-                                                <div class="radio"> <label><input type="radio" name="radio"><i></i>Bank Muamalat</label> </div>
+                                                <div class="radio"> <label><input type="radio" name="payment_method" value="BankMuamalat"><i></i>Bank Muamalat</label> </div>
                                             </div>
                                             <div class="check_box">
-                                                <div class="radio"> <label><input type="radio" name="radio"><i></i>Bank Simpanan Nasional</label> </div>
+                                                <div class="radio"> <label><input type="radio" name="payment_method" value="BankSimpananNasional"><i></i>Bank Simpanan Nasional</label> </div>
                                             </div>
                                             <div class="check_box">
-                                                <div class="radio"> <label><input type="radio" name="radio"><i></i>Bigpay Malaysia</label> </div>
+                                                <div class="radio"> <label><input type="radio" name="payment_method" value="BigpayMalaysia"><i></i>Bigpay Malaysia</label> </div>
                                             </div>
                                         </div>
                                         <div class="swit">
                                             <div class="check_box">
-                                                <div class="radio"> <label><input type="radio" name="radio" checked=""><i></i>MayBank</label> </div>
+                                                <div class="radio"> <label><input type="radio" name="payment_method" value="MayBank"><i></i>MayBank</label> </div>
                                             </div>
                                             <div class="check_box">
-                                                <div class="radio"> <label><input type="radio" name="radio"><i></i>Cimb Bank</label> </div>
+                                                <div class="radio"> <label><input type="radio" name="payment_method" value="CimbBank"><i></i>Cimb Bank</label> </div>
                                             </div>
                                             <div class="check_box">
-                                                <div class="radio"> <label><input type="radio" name="radio"><i></i>GX Bank</label> </div>
+                                                <div class="radio"> <label><input type="radio" name="payment_method" value="GXBank"><i></i>GX Bank</label> </div>
                                             </div>
                                             <div class="check_box">
-                                                <div class="radio"> <label><input type="radio" name="radio"><i></i>OCBC Bank</label> </div>
+                                                <div class="radio"> <label><input type="radio" name="payment_method" value="OCBC"><i></i>OCBC Bank</label> </div>
                                             </div>
                                             <div class="check_box">
-                                                <div class="radio"> <label><input type="radio" name="radio"><i></i>RHB Bank</label> </div>
+                                                <div class="radio"> <label><input type="radio" name="payment_method" value="RHB"><i></i>RHB Bank</label> </div>
                                             </div>
                                             <div class="check_box">
-                                                <div class="radio"> <label><input type="radio" name="radio"><i></i>ShopeePay</label> </div>
+                                                <div class="radio"> <label><input type="radio" name="payment_method" value="ShopeePay"><i></i>ShopeePay</label> </div>
                                             </div>
                                         </div>
                                         <div class="clear"></div>
                                     </div>
-                                    <a class="confirm-btn" href="success_payment.html">CONTINUE</a>
+                                    <button type="submit" class="confirm-btn">CONTINUE</button>
+                                    </form>
                                 </div>
                             </div>
+
+                            <!-- E-Wallet -->
                             <div class="tab-1 resp-tab-content" aria-labelledby="tab_item-2">
                                 <div class="payment-info">
                                     <h3>E-Wallet</h3>
-                                    <h4>Already Have A TouchnGo ?</h4>
-                                    <div class="login-tab">
-                                        <div class="user-login">
-                                            <h3>Login</h3>
-
-                                            <form>
-                                                <input type="text" value="name@email.com" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'name@email.com';}" required="">
-                                                <input type="password" value="PASSWORD" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'PASSWORD';}" required="">
-                                                <div class="user-grids">
-                                                    <div class="user-left">
-                                                        <div class="single-bottom">
-                                                            <ul>
-                                                                <li>
-                                                                    <input type="checkbox" id="brand1" value="">
-                                                                    <label for="brand1"><span></span>Remember me?</label>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
+                                    <form method="POST" action="/GPR/api/process_payment.php">
+                                        <div class="radio-btns">
+                                            <div class="swit">
+                                                <div class="check_box">
+                                                    <div class="radio"> 
+                                                        <label><input type="radio" name="payment_method" value="TouchnGo" checked><i></i>TouchnGo</label> 
                                                     </div>
-                                                    <div class="user-right">
-                                                        <input type="submit" value="LOGIN">
-                                                    </div>
-                                                    <div class="clear"></div>
                                                 </div>
-                                            </form>
+                                                <!-- Add other e-wallets here similarly -->
+                                            </div>
                                         </div>
-                                    </div>
+                                        <button type="submit" class="confirm-btn">CONTINUE</button>
+                                    </form>
                                 </div>
                             </div>
+
+                            <!-- Debit Card -->
                             <div class="tab-1 resp-tab-content" aria-labelledby="tab_item-3">
                                 <div class="payment-info">
-
                                     <h3 class="pay-title">Debit Card Info</h3>
-                                    <form>
+                                    <form method="POST" action="/GPR/api/process_payment.php">
                                         <div class="tab-for">
-                                            <div class="tab-for">
-                                                <h5>Amount</h5>
-                                                <input class="pay-logo" type="text" value="₹.00" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '₹.00';}" required="">
-                                            </div>
+                                            <h5>Amount</h5>
+                                            <input class="pay-logo" type="text" name="amount" value="100.00" required>
                                             <h5>NAME ON CARD</h5>
-                                            <input class="pay-logo" type="text" value="Enter the name" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Enter the name';}" required="">
+                                            <input class="pay-logo" type="text" name="name_on_card" value="Enter the name" required>
                                             <h5>CARD NUMBER</h5>
-                                            <input class="pay-logo" type="text" value="0000-0000-0000-0000" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '0000-0000-0000-0000';}" required="">
+                                            <input class="pay-logo" type="text" name="card_number" value="0000-0000-0000-0000" required>
                                         </div>
                                         <div class="transaction">
                                             <div class="tab-form-left user-form">
                                                 <h5>EXPIRATION</h5>
                                                 <ul>
                                                     <li>
-                                                        <input type="number" class="text_box" type="text" value="6" min="1" />
+                                                        <input type="number" name="exp_month" class="text_box" value="6" min="1" />
                                                     </li>
                                                     <li>
-                                                        <input type="number" class="text_box" type="text" value="1988" min="1" />
+                                                        <input type="number" name="exp_year" class="text_box" value="2025" min="1" />
                                                     </li>
-
                                                 </ul>
                                             </div>
                                             <div class="tab-form-right user-form-rt">
                                                 <h5>CVV NUMBER</h5>
-                                                <input type="password" value="xxx" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'xxx';}" required="">
+                                                <input type="password" name="cvv" value="xxx" required>
                                             </div>
                                             <div class="clear"></div>
                                         </div>
-                                        <a class="confirm-btn" href="success_payment.html">SEND</a>
+                                        <button type ="submit" class="confirm-btn">SEND</button>
                                     </form>
                                 </div>
                             </div>
@@ -192,18 +180,20 @@
             </div>
         </div>
     </section>
+    
     <footer id="footer" class="footer transparent-background">
         <div class="container">
-          <div class="copyright text-center ">
-            <p>© <span>Copyright</span> <strong class="px-1 sitename">ComingSoon</strong> <span>All Rights Reserved</span></p>
-          </div>
-          <div class="social-links d-flex justify-content-center">
-            <a href="https://m.facebook.com/profile.php?id=100085816266970"><i class="bi bi-facebook"></i></a>
-            <a href="https://www.instagram.com/3kpp_usm/?hl=en"><i class="bi bi-instagram"></i></a>
-            <a href="https://www.tiktok.com/@3kpp_usm?_t=8rUfpqcwQLv&_r=1"><i class="bi bi-tiktok"></i></a>
-          </div>
+            <div class="copyright text-center ">
+                <p>© <span>Copyright</span> <strong class="px-1 sitename">ComingSoon</strong> <span>All Rights Reserved</span></p>
+            </div>
+            <div class="social-links d-flex justify-content-center">
+                <a href="https://m.facebook.com/profile.php?id=100085816266970"><i class="bi bi-facebook"></i></a>
+                <a href="https://www.instagram.com/3kpp_usm/?hl=en"><i class="bi bi-instagram"></i></a>
+                <a href="https://www.tiktok.com/@3kpp_usm?_t=8rUfpqcwQLv&_r=1"><i class="bi bi-tiktok"></i></a>
+            </div>
         </div>
-      </footer>
+    </footer>
+    
     <!-- Vendor JS Files -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="../assets/js/easyResponsiveTabs.js"></script>

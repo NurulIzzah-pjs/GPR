@@ -266,7 +266,6 @@
         
                 <div class="paper-container">
                     <div class="printer-bottom"></div>
-        
                     <div class="paper">
                         <div class="main-contents">
                             <div class="success-icon">&#10004;</div>
@@ -278,7 +277,7 @@
                             </div>
                             <div class="order-details">
                                 <div class="order-number-label">Transaction ID</div>
-                                <div class="order-number">123456789</div>
+                                <div class="order-number" id="transaction-id">Loading...</div>
                                 <div class="complement">Thank You!</div>
                             </div>
                         </div>
@@ -298,5 +297,17 @@
                       </div>
                     </div>
                   </footer>
+                  <script>
+                    // Get the Transaction ID from the URL
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const transactionId = urlParams.get('transaction_id');
+                
+                    // Display the Transaction ID
+                    if (transactionId) {
+                        document.getElementById('transaction-id').textContent = transactionId;
+                    } else {
+                        document.getElementById('transaction-id').textContent = 'Unavailable';
+                    }
+                </script>
         </body>
         </html>

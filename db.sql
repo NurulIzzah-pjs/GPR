@@ -125,18 +125,42 @@ INSERT INTO EventDetails (EventName, Description, Location, StartDate, EndDate)
 VALUES 
 ('Glow Paint Run', 'A fun and exciting glow-themed event', 'The Bricks, USM', '2024-12-15 20:00:00', '2024-12-15 23:00:00');
 
--- add PackageCode in package table
+
+-- -- insert data into package table
+-- INSERT INTO Package (PackageName, PackagePrice, PackageCode)
+-- VALUES 
+-- ('GLOW-RIOUS STARTER', 15.00, 'basic'),
+-- ('GLOW-RIOUS LITE', 30.00, 'lite'),
+-- ('GLOW-RIOUS PRO', 50.00, 'pro');
+
+
+-- alter table package
 ALTER TABLE Package
-ADD COLUMN PackageCode VARCHAR(100) NOT NULL;
+    ADD COLUMN description VARCHAR(255) DEFAULT NULL,
+    ADD COLUMN image VARCHAR(255) NOT NULL,
+    ADD COLUMN features TEXT NOT NULL,
+    ADD COLUMN is_popular TINYINT(1) DEFAULT 0,
+    ADD COLUMN delay INT DEFAULT 100,
+    ADD COLUMN PackageCode VARCHAR(100) NOT NULL;
+    MODIFY COLUMN PackageName VARCHAR(255) NOT NULL;
 
--- modify packageName in package table
-ALTER TABLE Package
-MODIFY PackageName VARCHAR(100) NOT NULL;
+-- insert package data
+INSERT INTO Package (PackageName, description, PackagePrice, image, features, is_popular, delay) 
+VALUES
+('GLOW-RIOUS STARTER', NULL, 15.00, 'assets/img/starterpack.png', 'LED Stick, Refreshments, Drawstring Bag, Face Paint Service, Lucky Draw Ticket, Wristband', 0, 100),
+('GLOW-RIOUS PRO', '* Only this package is open to public *', 50.00, 'assets/img/propack.png', 'T-shirt, LED Stick, Refreshments, Drawstring Bag, Face Paint Service, Lucky Draw Ticket, Wristband, Medal', 1, 200),
+('GLOW-RIOUS LITE', NULL, 35.00, 'assets/img/litepack.png', 'T-shirt, LED Stick, Refreshments, Drawstring Bag, Face Paint Service, Lucky Draw Ticket, Wristband', 0, 300);
 
--- insert data into package table
-INSERT INTO Package (PackageName, PackagePrice, PackageCode)
-VALUES 
-('GLOW-RIOUS STARTER', 15.00, 'basic'),
-('GLOW-RIOUS LITE', 30.00, 'lite'),
-('GLOW-RIOUS PRO', 50.00, 'pro');
 
+DROP TABLE Payment
+
+CREATE TABLE payments (
+    id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    payment_method VARCHAR(255) NOT NULL,
+    amount DECIMAL(10, 2) NOT NULL,
+    name_on_card VARCHAR(255) NOT NULL,
+    card_number VARCHAR(255) NOT NULL,
+    cvv VARCHAR(3) NOT NULL,
+    expiration_date DATE NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);

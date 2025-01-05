@@ -220,181 +220,69 @@
         </div>
       </div>
     </section><!-- /Contact Section -->
-     <!-- Packages Section -->
-     <section id="Packages" class="Packages section transparent-background">
+      <!-- Packages Section -->
+      <section id="Packages" class="Packages section transparent-background">
+    
+        <!-- Section Title -->
+        <div class="container section-title" data-aos="fade-up">
+          <h2>Packages</h2>
+          <p>Unlock the Adventure – Secure Your Run Package Here! 三三(ง ˙o˙)ว</p>
+        </div>
+        <div class="container" data-aos="fade-up" data-aos-delay="100">
+          <div class="row g-4 justify-content-center" id="packages-container">
+            <!-- Packages will be dynamically loaded here -->
+            <script>
+              // Fetch packages from PHP
+              fetch('/GPR/api/packages.php')
+                .then(response => response.json())
+                .then(packages => {
+                  // Reorder the packages so the most popular one appears in the middle
+                  const popularPackage = packages.find(pkg => pkg.isPopular);
+                  if (popularPackage) {
+                    // Remove the most popular package from its current position
+                    packages = packages.filter(pkg => !pkg.isPopular);
+                    // Insert the most popular package at the second position (middle)
+                    packages.splice(1, 0, popularPackage);
+                  }
 
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Packages</h2>
-        <p>Unlock the Adventure – Secure Your Run Package Here! 三三(ง ˙o˙)ว</p>
-      </div><!-- End Section Title -->
+                  const container = document.getElementById('packages-container');
+                  packages.forEach(pkg => {
+                    const card = document.createElement('div');
+                    card.classList.add('col-lg-4', 'data-aos', 'fade-up');
+                    card.setAttribute('data-aos-delay', pkg.delay || '100');
+                    card.innerHTML = `
+                      <div class="Packages-card ${pkg.isPopular ? 'popular' : ''}">
+                        ${pkg.isPopular ? '<div class="popular-badge">Most Popular</div>' : ''}
+                        <h3>${pkg.name}</h3>
+                        ${pkg.description ? `<h5>${pkg.description}</h5>` : ''}
+                        <div class="price">
+                          <span class="currency">RM</span>
+                          <span class="amount">${pkg.price}</span>
+                          <span class="period">/ person</span>
+                        </div>
+                        <img src="${pkg.image}" alt="${pkg.name}" class="description-image">
+                        <h4>Running Kit Included:</h4>
+                        <ul class="features-list">
+                          ${pkg.features.map(feature => `
+                            <li><i class="bi bi-check-circle-fill"></i> ${feature}</li>
+                          `).join('')}
+                        </ul>
+                        <a href="Templates/registration.html" class="btn btn-${pkg.isPopular ? 'light' : 'primary'}">
+                          Purchase Now
+                          <i class="bi bi-arrow-right"></i>
+                        </a>
+                      </div>
+                    `;
+                    container.appendChild(card);
+                  });
+                });
 
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-        <div class="row g-4 justify-content-center">
-
-          <!-- Basic Plan -->
-          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
-            <div class="Packages-card">
-              <h3>GLOW-RIOUS STARTER</h3>
-              <div class="price">
-                <span class="currency">RM</span>
-                <span class="amount">15.00</span>
-                <span class="period">/ person</span>
-              </div>
-              <!-- <p class="description">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium totam.</p> -->
-              <img src="assets/img/starterpack.png" alt="Glow Starter Package" class="description-image">
-
-              <h4>Running Kit Included:</h4>
-              <ul class="features-list">
-                <li>
-                  <i class="bi bi-check-circle-fill"></i>
-                  LED Stick
-                </li>
-                <li>
-                  <i class="bi bi-check-circle-fill"></i>
-                  Refreshments
-                </li>
-                <li>
-                  <i class="bi bi-check-circle-fill"></i>
-                  Drawstring Bag
-                </li>
-                <li>
-                  <i class="bi bi-check-circle-fill"></i>
-                  Face Paint Service
-                </li>
-                <li>
-                  <i class="bi bi-check-circle-fill"></i>
-                  Lucky Draw Ticket
-                </li>
-                <li>
-                  <i class="bi bi-check-circle-fill"></i>
-                  Wristband
-                </li>
-              </ul>
-
-              <!-- <a href="Templates/registration.php" class="btn btn-primary" id="Register">
-                Purchase Now
-                <i class="bi bi-arrow-right"></i>
-              </a> -->
-              <a href="Templates/registration.php?package=basic" class="btn btn-primary" id="Register">
-                Purchase Now
-                <i class="bi bi-arrow-right"></i>
-            </a>
-            
-            </div>
-          </div>
-
-          <!-- Standard Plan -->
-          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
-            <div class="Packages-card popular">
-              <div class="popular-badge">Most Popular</div>
-              <h31>GLOW-RIOUS PRO</h31>
-              <h5>* Only this package is open to public *</h5>
-              <div class="price">
-                <span class="currency">RM</span>
-                <span class="amount">50.00</span>
-                <span class="period">/ person</span>
-              </div>
-              <!-- <p class="description">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum.</p> -->
-              <img src="assets/img/propack.png" alt="Glow Starter Package" class="description-image">
-             
-              <h4>Running Kit Included:</h4>
-              <ul class="features-list">
-                <li>
-                  <i class="bi bi-check-circle-fill"></i>
-                  T-shirt
-                </li>
-                <li>
-                  <i class="bi bi-check-circle-fill"></i>
-                  LED Stick
-                </li>
-                <li>
-                  <i class="bi bi-check-circle-fill"></i>
-                  Refreshments
-                </li>
-                <li>
-                  <i class="bi bi-check-circle-fill"></i>
-                  Drawstring Bag
-                </li>
-                <li>
-                  <i class="bi bi-check-circle-fill"></i>
-                  Face Paint Service
-                </li>
-                <li>
-                  <i class="bi bi-check-circle-fill"></i>
-                  Lucky Draw Ticket
-                </li>
-                <li>
-                  <i class="bi bi-check-circle-fill"></i>
-                  Wristband
-                </li>
-                <li>
-                  <i class="bi bi-check-circle-fill"></i>
-                  Medal
-                </li>
-              </ul>
-
-              <a href="Templates/registration.php?package=pro" class="btn btn-light">
-                Purchase Now
-                <i class="bi bi-arrow-right"></i>
-              </a>
-            </div>
-          </div>
-
-          <!-- Premium Plan -->
-          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="300">
-            <div class="Packages-card">
-              <h3>GLOW-RIOUS LITE</h3>
-              <div class="price">
-                <span class="currency">RM</span>
-                <span class="amount">35.00</span>
-                <span class="period">/ person</span>
-              </div>
-              <!-- <p class="description">Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae.</p> -->
-              <img src="assets/img/litepack.png" alt="Glow Starter Package" class="description-image">
-              
-              <h4>Running Kit Included:</h4>
-              <ul class="features-list">
-                <li>
-                  <i class="bi bi-check-circle-fill"></i>
-                  T-shirt
-                </li>
-                <li>
-                  <i class="bi bi-check-circle-fill"></i>
-                  LED Stick
-                </li>
-                <li>
-                  <i class="bi bi-check-circle-fill"></i>
-                  Refreshments
-                </li>
-                <li>
-                  <i class="bi bi-check-circle-fill"></i>
-                  Drawstring Bag
-                </li>
-                <li>
-                  <i class="bi bi-check-circle-fill"></i>
-                  Face Paint Service
-                </li>
-                <li>
-                  <i class="bi bi-check-circle-fill"></i>
-                  Lucky Draw Ticket
-                </li>
-                <li>
-                  <i class="bi bi-check-circle-fill"></i>
-                  Wristband
-                </li>
-              </ul>
-
-              <a href="Templates/registration.php?package=lite" class="btn btn-primary">
-                Purchase Now
-                <i class="bi bi-arrow-right"></i>
-              </a>
-            </div>
+            </script>
           </div>
         </div>
-      </div>
-    </section><!-- /Packages Section -->
+      </section>
+      <!-- /Packages Section -->
+  
   </main>
   <footer id="footer" class="footer transparent-background">
     <div class="container">

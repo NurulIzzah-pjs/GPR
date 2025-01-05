@@ -37,7 +37,8 @@ table {
     border-spacing: 0;
 }
 
-a {
+a
+button {
     text-decoration: none;
 }
 
@@ -109,7 +110,7 @@ img {
     --background-color: #ffffff; /* Background color for the entire website, including individual sections */
     --default-color: #ffffff; /* Default color used for the majority of the text content across the entire website */
     --heading-color: #ffffff; /* Color for headings, subheadings and title throughout the website */
-    --accent-color: #be06ec; /* Accent color that represents your brand on the website. It's used for buttons, links, and other elements that need to stand out */
+    --accent-color: #be06ec; /* Accent color that represents your brand on the website. It's used for as, links, and other elements that need to stand out */
     --surface-color: #ffffff; /* The surface color is used as a background of boxed elements within sections, such as cards, icon boxes, or other elements that require a visual separation from the global background. */
     --contrast-color: #ffffff; /* Contrast color for text, ensuring readability against backgrounds of accent, heading, or default colors. */
      scroll-behavior: smooth;
@@ -147,16 +148,19 @@ img {
     }
   }
   
-  a {
+  a
+  button {
     color: var(--accent-color);
     text-decoration: none;
     transition: 0.3s;
   }
   
-  a:hover {
+  a:hover 
+  button:hover{
     color: color-mix(in srgb, var(--accent-color), transparent 25%);
     text-decoration: none;
   }
+
   
   h1,
   /* h2, */
@@ -264,6 +268,14 @@ img {
       margin-left: 5px;
       transition: 0.3s;
     }
+
+    .navmenu button i,
+    .navmenu button:focus i {
+      font-size: 12px;
+      line-height: 0;
+      margin-left: 5px;
+      transition: 0.3s;
+    }
   
     .navmenu>ul>li>a:before {
       content: "";
@@ -277,6 +289,19 @@ img {
       width: 0px;
       transition: all 0.3s ease-in-out 0s;
     }
+
+    .navmenu>ul>li>button:before {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 2px;
+        bottom: -6px;
+        left: 0;
+        background-color: var(--accent-color);
+        visibility: hidden;
+        width: 0px;
+        transition: all 0.3s ease-in-out 0s;
+      }
   
     .navmenu a:hover:before,
     .navmenu li:hover>a:before,
@@ -408,9 +433,30 @@ img {
       transition: 0.3s;
       background-color: color-mix(in srgb, var(--accent-color), transparent 90%);
     }
+
+    .navmenu button i,
+    .navmenu button:focus i {
+      font-size: 12px;
+      line-height: 0;
+      margin-left: 5px;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      transition: 0.3s;
+      background-color: color-mix(in srgb, var(--accent-color), transparent 90%);
+    }
   
     .navmenu a i:hover,
     .navmenu a:focus i:hover {
+      background-color: var(--accent-color);
+      color: var(--contrast-color);
+    }
+
+    .navmenu button i:hover,
+    .navmenu button:focus i:hover {
       background-color: var(--accent-color);
       color: var(--contrast-color);
     }
@@ -554,7 +600,7 @@ img {
   }
   
   /*--------------------------------------------------------------
-  # Scroll Top Button
+  # Scroll Top a
   --------------------------------------------------------------*/
   .scroll-top {
     position: fixed;
@@ -1207,6 +1253,20 @@ label.checkbox {
 .payment-info a:hover {
     background: var(--accent-color);
 }
+
+.payment-info button {
+    padding: 8px 10px;
+    font-size: 14px;
+    color: #fff;
+    font-weight: 600;
+    text-transform: uppercase;
+    background: var(--accent-color);
+}
+
+.payment-info button:hover {
+    background: var(--accent-color);
+}
+
 
 .radio-btns {
     margin-bottom: 30px;
