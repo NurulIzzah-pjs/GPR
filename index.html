@@ -233,7 +233,7 @@
             <!-- Packages will be dynamically loaded here -->
             <script>
               // Fetch packages from PHP
-              fetch('/GPR/api/packages.php')
+                fetch('/GPR/api/packages.php')
                 .then(response => response.json())
                 .then(packages => {
                   // Reorder the packages so the most popular one appears in the middle
@@ -267,7 +267,7 @@
                             <li><i class="bi bi-check-circle-fill"></i> ${feature}</li>
                           `).join('')}
                         </ul>
-                        <a href="Templates/registration.html" class="btn btn-${pkg.isPopular ? 'light' : 'primary'}">
+                        <a href="Templates/registration.php?package=${encodeURIComponent(pkg.name.toLowerCase())}" class="btn btn-${pkg.isPopular ? 'light' : 'primary'}">
                           Purchase Now
                           <i class="bi bi-arrow-right"></i>
                         </a>
@@ -276,6 +276,7 @@
                     container.appendChild(card);
                   });
                 });
+
 
             </script>
           </div>
@@ -315,3 +316,7 @@
 
 </body>
 </html>
+
+
+
+

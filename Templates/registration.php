@@ -87,6 +87,11 @@ if (isset($_POST['submit'])) {
                 $relativeQRPath
             );
 
+            // Store the package in session
+            $_SESSION['package'] = $package;
+            $_SESSION['IdentificationNum'] = $ic;
+
+
             if ($stmt->execute()) {
                 header("Location: payment.html");
                 exit();
@@ -203,6 +208,7 @@ if (isset($_POST['submit'])) {
                         <input type="text" placeholder="Enter your school" id="school" name="school"  style="display: none;" required>
                     </div>
                     <div class="col-md-6">
+                    <form action="process_payment.php" method="POST">
                         <label for="campus" class="u-label" style="display: none;">Campus</label>
                         <select id="campus" name="campus"  style="display: none;"required>
                             <option value="" disabled selected>Select your campus</option>
