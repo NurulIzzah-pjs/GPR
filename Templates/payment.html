@@ -144,6 +144,7 @@
                                 <div class="payment-info">
                                     <h3 class="pay-title">Debit Card Info</h3>
                                     <form method="POST" action="/GPR/api/process_payment.php">
+                                        <input type="hidden" name="payment_method" value="DebitCard">
                                         <div class="tab-for">
                                             <h5>Amount</h5>
                                             <input class="pay-logo" type="text" name="amount" value="100.00" required>

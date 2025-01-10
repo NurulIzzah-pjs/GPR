@@ -5,7 +5,7 @@ header('Content-Type: application/json');
 // Database connection
 $servername = "localhost";
 $username = "root";
-$password = "";
+$password = "izzy";
 $dbname = "gpr";
 
 $conn = new mysqli($servername, $username, $password, $dbname);

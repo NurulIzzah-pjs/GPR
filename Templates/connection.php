@@ -1,7 +1,7 @@
 <?php
 $servername = "localhost";  // Change to your server if not localhost
 $username = "root";         // Database username
-$password = "";             // Database password (empty for XAMPP default)
+$password = "izzy";             // Database password (empty for XAMPP default)
 $dbname = "gpr"; // Replace with your database name
 
 // Create connection

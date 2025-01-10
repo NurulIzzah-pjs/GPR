@@ -145,11 +145,11 @@ ALTER TABLE Package
     MODIFY COLUMN PackageName VARCHAR(255) NOT NULL;
 
 -- insert package data
-INSERT INTO Package (PackageName, description, PackagePrice, image, features, is_popular, delay) 
+INSERT INTO Package (PackageName, description, PackagePrice, image, features, is_popular, delay, PackageCode) 
 VALUES
-('GLOW-RIOUS STARTER', NULL, 15.00, 'assets/img/starterpack.png', 'LED Stick, Refreshments, Drawstring Bag, Face Paint Service, Lucky Draw Ticket, Wristband', 0, 100),
-('GLOW-RIOUS PRO', '* Only this package is open to public *', 50.00, 'assets/img/propack.png', 'T-shirt, LED Stick, Refreshments, Drawstring Bag, Face Paint Service, Lucky Draw Ticket, Wristband, Medal', 1, 200),
-('GLOW-RIOUS LITE', NULL, 35.00, 'assets/img/litepack.png', 'T-shirt, LED Stick, Refreshments, Drawstring Bag, Face Paint Service, Lucky Draw Ticket, Wristband', 0, 300);
+('GLOW-RIOUS STARTER', NULL, 15.00, 'assets/img/starterpack.png', 'LED Stick, Refreshments, Drawstring Bag, Face Paint Service, Lucky Draw Ticket, Wristband', 0, 100 , 'basic'),
+('GLOW-RIOUS PRO', '* Only this package is open to public *', 50.00, 'assets/img/propack.png', 'T-shirt, LED Stick, Refreshments, Drawstring Bag, Face Paint Service, Lucky Draw Ticket, Wristband, Medal', 1, 200, 'pro'),
+('GLOW-RIOUS LITE', NULL, 35.00, 'assets/img/litepack.png', 'T-shirt, LED Stick, Refreshments, Drawstring Bag, Face Paint Service, Lucky Draw Ticket, Wristband', 0, 300, 'lite');
 
 
 DROP TABLE Payment
@@ -164,3 +164,7 @@ CREATE TABLE payments (
     expiration_date DATE NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+
+
+

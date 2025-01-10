@@ -8,7 +8,7 @@ if (isset($_SESSION['user_id'])) {
 }
 
 if (isset($_POST['submit'])) {
-    include "connection.php";
+    include '../db.php';
     include "../phpqrcode/qrlib.php"; // Include the QR code library
 
     if (!$conn) {
@@ -28,7 +28,7 @@ if (isset($_POST['submit'])) {
     $password = mysqli_real_escape_string($conn, $_POST['pass']);
 
     // Check if the user already exists
-    $sql = "SELECT * FROM participant WHERE IdentificationNum = ?";
+    $sql = "SELECT * FROM Participant WHERE IdentificationNum = ?";
     $stmt = $conn->prepare($sql);
     if (!$stmt) {
         die("SQL error in prepare: " . $conn->error);
@@ -39,7 +39,7 @@ if (isset($_POST['submit'])) {
 
     if ($result->num_rows === 0) {
         // Verify that the selected package exists in the package table and retrieve its ID
-        $sql = "SELECT PackageID FROM package WHERE PackageCode = ?";
+        $sql = "SELECT PackageID FROM Package WHERE PackageCode = ?";
         $stmt = $conn->prepare($sql);
         if (!$stmt) {
             die("SQL error in prepare (package check): " . $conn->error);
@@ -66,7 +66,7 @@ if (isset($_POST['submit'])) {
             $packageID = $row['PackageID'];
 
             // Insert participant data into the database
-            $sql = "INSERT INTO participant (Name, PhoneNum, IdentificationNum, Role, MatricNum, Campus, School, PackageID, Username, Password, QRCodeStu)
+            $sql = "INSERT INTO Participant (Name, PhoneNum, IdentificationNum, Role, MatricNum, Campus, School, PackageID, Username, Password, QRCodeStu)
                     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             $stmt = $conn->prepare($sql);
             if (!$stmt) {
