@@ -1,5 +1,5 @@
 <?php
-include "connection.php"; // Ensure this path is correct
+include "../db.php"; // Ensure this path is correct
 
 if (!$conn) {
     die("Database connection failed: " . mysqli_connect_error());
@@ -450,7 +450,7 @@ $conn->close();
       
   </div>
   <div class="btnjoinus"> 
-    <a class="btn btn-light" href="participantlogin.html" role="button" style="background-color: #ad18ed; color: white; margin-top: 20px;">Log Out</a>
+    <a class="btn btn-light" href="participantlogin.php" role="button" style="background-color: #ad18ed; color: white; margin-top: 20px;">Log Out</a>
   </div>
     </section>
   </main>

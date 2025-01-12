@@ -4,18 +4,18 @@ include '../db.php'; // Ensure the correct path to db.php
 header('Content-Type: application/json');
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Connect to the database
-    $servername = "localhost";
-    $username = "root";
-    $password = "izzy";
-    $dbname = "gpr";
+    // // Connect to the database
+    // $servername = "localhost";
+    // $username = "root";
+    // $password = "izzy";
+    // $dbname = "gpr";
 
-    $conn = new mysqli($servername, $username, $password, $dbname);
+    // $conn = new mysqli($servername, $username, $password, $dbname);
 
-    // Check connection
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
+    // // Check connection
+    // if ($conn->connect_error) {
+    //     die("Connection failed: " . $conn->connect_error);
+    // }
 
 
     // Sanitize POST data

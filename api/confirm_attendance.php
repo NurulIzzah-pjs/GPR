@@ -1,125 +1,69 @@
 <?php
-include '../db.php'; // Include your database connection
+include '../db.php'; // Include database connection
 
-header("Content-Type: application/json"); // Ensure the response is JSON
+header('Content-Type: application/json');
 
-// Get the type of data requested
-$type = isset($_GET['type']) ? $_GET['type'] : null;
+// Retrieve the input data (QR Code) from the POST request
+$input = json_decode(file_get_contents('php://input'), true);
+$qrCode = $input['qrCode'] ?? ''; // Use null coalescing to assign an empty string if 'qrCode' is not provided
 
-if ($type === 'line') {
-    // Fetch data for the Line Graph (Participant Registration Trend)
-    $sql = "SELECT DATE_FORMAT(RegistrationDate, '%d.%m.%Y') as RegistrationDate, COUNT(*) as DailyCount 
-            FROM Participant 
-            GROUP BY DATE(RegistrationDate)
-            ORDER BY RegistrationDate ASC";
-    $result = $conn->query($sql);
+if (!empty($qrCode)) {
+    // Extract the IC number from the QR code content
+    // Assuming the QR code format is: "Name: Anis IC: 12"
+    preg_match('/IC: (\d+)/', $qrCode, $matches);
+    $ic = $matches[1] ?? null; // Extract the IC number (e.g., "12")
 
-    $data = array();
-    $cumulativeTotal = 0;
+    if ($ic) {
+        // Construct the QR code file path (e.g., "qrcodes/12.png")
+        $qrCodeFilePath = "qrcodes/" . $ic . ".png";
 
-    while ($row = $result->fetch_assoc()) {
-        $cumulativeTotal += $row['DailyCount']; // Add the daily count to the cumulative total
-        $data[] = [
-            'RegistrationDate' => $row['RegistrationDate'], // Formatted as day.month.year
-            'CumulativeCount' => $cumulativeTotal
-        ];
+        // Query the database using the constructed file path
+        $stmt = $conn->prepare("
+            SELECT 
+                p.ParticipantID, 
+                p.Name, 
+                pkg.PackageName 
+            FROM 
+                Participant p 
+            LEFT JOIN 
+                Package pkg 
+            ON 
+                p.PackageID = pkg.PackageID 
+            WHERE 
+                p.QRCodeStu = ?
+        ");
+        $stmt->bind_param("s", $qrCodeFilePath); // Bind the constructed file path
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            $participant = $result->fetch_assoc();
+
+            // Mark attendance in the Attendance table
+            $stmt = $conn->prepare("INSERT INTO Attendance (AttendanceStatus, ScanTime, ParticipantID) VALUES (1, NOW(), ?)");
+            $stmt->bind_param("i", $participant['ParticipantID']);
+            $stmt->execute();
+
+            // Send a success response with participant details and package name
+            echo json_encode([
+                'success' => true,
+                'message' => 'Attendance confirmed successfully!',
+                'participantName' => $participant['Name'],
+                'packageName' => $participant['PackageName'] // Fetched from the Package table
+            ]);
+        } else {
+            // Send a failure response if the QR code is not found
+            echo json_encode(['success' => false, 'message' => 'QR code not found in the database.']);
+        }
+
+        $stmt->close();
+    } else {
+        // Send a failure response if IC number extraction fails
+        echo json_encode(['success' => false, 'message' => 'Invalid QR code format.']);
     }
-
-    echo json_encode($data); // Return the cumulative data as JSON
-}
-
-
-
-elseif ($type === 'bar') {
-    // Fetch data for the Bar Graph (Registrations by Ticket Type)
-    $sql = "SELECT p.PackageName, COUNT(pt.ParticipantID) as ParticipantCount 
-            FROM Package p
-            LEFT JOIN Participant pt ON p.PackageID = pt.PackageID
-            GROUP BY p.PackageName";
-    $result = $conn->query($sql);
-
-    $data = array();
-    while ($row = $result->fetch_assoc()) {
-        $data[] = $row;
-    }
-    echo json_encode($data);
-
-} elseif ($type === 'pie') {
-    $data = array();
-    
-    // Fetch total registrations
-    $sqlRegistrations = "SELECT COUNT(*) as TotalRegistrations FROM Participant";
-    $resultRegistrations = $conn->query($sqlRegistrations);
-    $totalRegistrations = $resultRegistrations->fetch_assoc()['TotalRegistrations'];
-
-    // Fetch total attendance
-    $sqlAttendance = "SELECT COUNT(*) as TotalAttendance FROM Attendance WHERE AttendanceStatus = 1"; // Assuming 1 means "present"
-    $resultAttendance = $conn->query($sqlAttendance);
-    $totalAttendance = $resultAttendance->fetch_assoc()['TotalAttendance'];
-
-    // Calculate percentages
-    $data[] = [
-        'Label' => 'Registered',
-        'Count' => $totalRegistrations,
-        'Percentage' => $totalRegistrations > 0 ? ($totalRegistrations / $totalRegistrations) * 100 : 0
-    ];
-
-    $data[] = [
-        'Label' => 'Attended',
-        'Count' => $totalAttendance,
-        'Percentage' => $totalRegistrations > 0 ? ($totalAttendance / $totalRegistrations) * 100 : 0
-    ];
-
-    echo json_encode($data);
-}
-
-elseif ($type === 'schedule') {
-    // Fetch data for the Event Schedule
-    $sql = "SELECT DATE_FORMAT(ActivityStart, '%h:%i %p') AS StartTime, ActivityName, Location FROM Schedules ORDER BY ActivityStart ASC";
-    $result = $conn->query($sql);
-
-    $data = array();
-    while ($row = $result->fetch_assoc()) {
-        $data[] = $row;
-    }
-    echo json_encode($data);
-} 
-
-elseif ($type === 'eventDetails') {
-    // Fetch data for the Event Details
-    $sql = "SELECT EventName, DATE_FORMAT(StartDate, '%d %M %Y') as EventDate, 
-            TIME_FORMAT(StartDate, '%h.%i %p') as StartTime, 
-            TIME_FORMAT(EndDate, '%h.%i %p') as EndTime, 
-            Location 
-            FROM EventDetails
-            ORDER BY EventID DESC LIMIT 1"; // Get the most recent event
-    $result = $conn->query($sql);
-
-    $data = array();
-    if ($row = $result->fetch_assoc()) {
-        $data = $row;
-    }
-    echo json_encode($data);
-}
-
-elseif ($type === 'totalParticipants') {
-    // Fetch the total number of participants
-    $sql = "SELECT COUNT(*) as TotalParticipants FROM Participant";
-    $result = $conn->query($sql);
-
-    $data = array();
-    if ($row = $result->fetch_assoc()) {
-        $data['TotalParticipants'] = $row['TotalParticipants'];
-    }
-
-    echo json_encode($data); // Return the total participants as JSON
-}
-
-
-else {
-    // If no valid type is provided, return an error message
-    echo json_encode(["error" => "Invalid or missing 'type' parameter."]);
+} else {
+    // Send a failure response if the QR code is empty
+    echo json_encode(['success' => false, 'message' => 'No QR code data provided.']);
 }
 
 $conn->close();
-?>

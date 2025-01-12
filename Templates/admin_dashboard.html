@@ -500,7 +500,7 @@ var registrationsByTicketTypeChart = new Chart(ctx2, {
 });
 
 // Fetch LINE GRAPH data
-fetch('../api/data_admindashboard.php?type=line')
+fetch('../api/data_admin_dashboard.php?type=line')
     .then(response => response.json())
     .then(data => {
         
@@ -517,7 +517,7 @@ fetch('../api/data_admindashboard.php?type=line')
 
 
 // fetch BAR GRAPH data
-fetch('../api/data_admindashboard.php?type=bar')
+fetch('../api/data_admin_dashboard.php?type=bar')
     .then(response => response.json())
     .then(data => {
 
@@ -533,7 +533,7 @@ fetch('../api/data_admindashboard.php?type=bar')
     .catch(error => console.error('Error fetching bar graph data:', error));
 
 // fetch PIE CHART data
-fetch('../api/data_admindashboard.php?type=pie')
+fetch('../api/data_admin_dashboard.php?type=pie')
     .then(response => response.json())
     .then(data => {
 
@@ -550,7 +550,7 @@ fetch('../api/data_admindashboard.php?type=pie')
 
 
  // Fetch schedule data from the database
-    fetch('../api/data_admindashboard.php?type=schedule')
+    fetch('../api/data_admin_dashboard.php?type=schedule')
         .then(response => response.json())
         .then(data => {
 
@@ -573,7 +573,7 @@ fetch('../api/data_admindashboard.php?type=pie')
         .catch(error => console.error('Error fetching schedule data:', error));
 
 // Fetch EVENT DETAILS from database
-    fetch('../api/data_admindashboard.php?type=eventDetails')
+    fetch('../api/data_admin_dashboard.php?type=eventDetails')
     .then(response => {
         console.log('Response:', response); // debugging: log the parsed data
         return response.json();
@@ -595,7 +595,7 @@ fetch('../api/data_admindashboard.php?type=pie')
 
     // fetch total participants from database
     document.addEventListener('DOMContentLoaded', () => {
-    fetch('../api/data_admindashboard.php?type=totalParticipants')
+    fetch('../api/data_admin_dashboard.php?type=totalParticipants')
         .then(response => response.json())
         .then(data => {
             const totalParticipantsElement = document.getElementById('totalParticipants');
