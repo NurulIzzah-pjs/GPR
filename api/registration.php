@@ -8,8 +8,8 @@ if (isset($_SESSION['user_id'])) {
 }
 
 if (isset($_POST['submit'])) {
-    // include '../db.php';
-    include 'connection.php';
+    include '../db.php';
+    // include 'connection.php';
     include "../phpqrcode/qrlib.php"; // Include the QR code library
 
     if (!$conn) {
@@ -94,7 +94,7 @@ if (isset($_POST['submit'])) {
 
 
             if ($stmt->execute()) {
-                header("Location: payment.html");
+                header("Location: ../Templates/payment.html");
                 exit();
             } else {
                 echo '<script>

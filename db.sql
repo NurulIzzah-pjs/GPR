@@ -166,5 +166,6 @@ CREATE TABLE payments (
 );
 
 
-
+ALTER TABLE Participant
+ADD COLUMN PaymentID INT(6);
 
