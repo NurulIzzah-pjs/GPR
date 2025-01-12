@@ -2,7 +2,7 @@
 session_start();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
-    include "connection.php"; // Adjust the path as necessary
+  include 'connection.php';  // Adjust the path as necessary
     
     if (!$conn) {
         die("Database connection failed: " . mysqli_connect_error());
@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
     $username = mysqli_real_escape_string($conn, $_POST['username']);
     $password = mysqli_real_escape_string($conn, $_POST['pass']);
 
-    $stmt = $conn->prepare("SELECT * FROM participant WHERE Username = ?");
+    $stmt = $conn->prepare("SELECT * FROM Participant WHERE Username = ?");
     $stmt->bind_param("s", $username);
     $stmt->execute();
     $result = $stmt->get_result();
