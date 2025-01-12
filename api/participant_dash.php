@@ -36,7 +36,7 @@ if (isset($_SESSION['user_username'])) {
 }
 
 // Fetch the package details for the user
-$package_query = "SELECT package.PackageName, package.PackagePrice
+$package_query = "SELECT package.PackageName, package.PackagePrice, package.features
 FROM package
 JOIN participant ON package.PackageID = participant.PackageID
 WHERE participant.Username = ?";
@@ -51,6 +51,7 @@ if ($stmt) {
         $package = $package_result->fetch_assoc();
         $package_name = $package['PackageName']; // Get package name
         $price = $package['PackagePrice']; // Get package price
+        $features = $package['features']; //Get package feature
     }
 
     $stmt->close();
@@ -86,6 +87,20 @@ if ($schedule_result && $schedule_result->num_rows > 0) {
     }
 }
 
+//Fetch event details
+$event_query = "SELECT EventName, Location, StartDate, EndDate FROM eventdetails";
+$event_result = $conn->query($event_query);
+
+if ($event_result && $event_result->num_rows > 0) {
+    $event = $event_result->fetch_assoc();
+
+    // Format the date and time
+    $event_name = $event['EventName'];
+    $event_location = $event['Location'];
+    $start_date = date("jS F Y", strtotime($event['StartDate']));
+    $start_time = date("g:i A", strtotime($event['StartDate']));
+    $end_time = date("g:i A", strtotime($event['EndDate']));
+}
 
 $conn->close();
 ?>
@@ -341,16 +356,23 @@ $conn->close();
                       <span class="period">/ person</span>
                   </div>
                   <img src="../assets/img/starterpack.png" alt="Glow Starter Package" class="description-image">
+                  
+                  <?php
+                  $features_list = explode (',', $features); //split features by comma
+                  ?>
   
-                  <!-- <h4>Running Kit Included:</h4>
+                  <h4>Running Kit Included:</h4>
                   <ul class="features-list">
-                      <li><i class="bi bi-check-circle-fill"></i> LED Stick</li>
+                    <?php foreach ($features_list as $features):?>
+                        <li><i class="bi bi-check-circle-fill"></i><?php echo htmlspecialchars(trim($features)); ?></li>
+                    <?php endforeach;?>
+                      <!-- <li><i class="bi bi-check-circle-fill"></i> LED Stick</li>
                       <li><i class="bi bi-check-circle-fill"></i> Refreshments</li>
                       <li><i class="bi bi-check-circle-fill"></i> Drawstring Bag</li>
                       <li><i class="bi bi-check-circle-fill"></i> Face Paint Service</li>
                       <li><i class="bi bi-check-circle-fill"></i> Lucky Draw Ticket</li>
-                      <li><i class="bi bi-check-circle-fill"></i> Wristband</li>
-                  </ul> -->
+                      <li><i class="bi bi-check-circle-fill"></i> Wristband</li> -->
+                  </ul>
               </div>
           </div>
   
@@ -358,10 +380,10 @@ $conn->close();
           <div class="col-lg-6 d-flex flex-column">
               <div class="personal-card mb-3">
                   <h3 class="card-title">Event Information</h3>
-                  <p style="font-size: 2.5rem; text-align: center;"><strong>Glow Paint Run</strong></p>
-                  <p style="font-size: 1.8rem; text-align: center;"><strong>14th December 2024</strong></p>
-                  <p style="font-size: 1.8rem; text-align: center;"><strong>8.00 pm - 11.00 pm</strong></p>
-                  <p style="font-size: 1.8rem; text-align: center;"><strong>The Bricks, USM</strong></p>
+                  <p style="font-size: 2.5rem; text-align: center;"><strong><?php echo $event_name;?></strong></p>
+                  <p style="font-size: 1.8rem; text-align: center;"><strong><?php echo $start_date;?></strong></p>
+                  <p style="font-size: 1.8rem; text-align: center;"><strong><?php echo $start_time . "-" . $end_time;?></strong></p>
+                  <p style="font-size: 1.8rem; text-align: center;"><strong><?php echo $event_location; ?></strong></p>
               </div>
               <div class="personal-card">
                   <h3 class="QR-text">Your QR Code</h3>
