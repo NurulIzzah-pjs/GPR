@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
     if ($row) {
       if ($password == $row["AdminPassword"]) {
             $_SESSION['user_username'] = $username;
-            header("Location: admin_dashboard.html");
+            header("Location: ../Templates/admin_dashboard.html");
             exit();
         } else {
             echo '<script>
