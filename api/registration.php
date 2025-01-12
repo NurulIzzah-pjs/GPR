@@ -94,7 +94,7 @@ if (isset($_POST['submit'])) {
 
 
             if ($stmt->execute()) {
-                header("Location: payment.html");
+                header("Location: ../Templates/payment.html");
                 exit();
             } else {
                 echo '<script>
