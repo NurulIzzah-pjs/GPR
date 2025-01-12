@@ -1,11 +1,21 @@
 <?php
-include '../db.php'; // Ensure the correct path to db.php
+// include '../db.php'; // Ensure the correct path to db.php
+// header('Content-Type: application/json');
+
+// // Database connection
+// $servername = "localhost";
+// $username = "root";
+// $password = "izzy";
+// $dbname = "gpr";
+
+//Teha's Database
+include 'connection.php'; // Ensure the correct path to db.php
 header('Content-Type: application/json');
 
 // Database connection
 $servername = "localhost";
 $username = "root";
-$password = "izzy";
+$password = "";
 $dbname = "gpr";
 
 $conn = new mysqli($servername, $username, $password, $dbname);

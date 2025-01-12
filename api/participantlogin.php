@@ -2,7 +2,7 @@
 session_start();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
-  include '../db.php';  // Adjust the path as necessary
+  include 'connection.php';  // Adjust the path as necessary
     
     if (!$conn) {
         die("Database connection failed: " . mysqli_connect_error());

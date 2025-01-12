@@ -8,7 +8,8 @@ if (isset($_SESSION['user_id'])) {
 }
 
 if (isset($_POST['submit'])) {
-    include '../db.php';
+    // include '../db.php';
+    include 'connection.php';
     include "../phpqrcode/qrlib.php"; // Include the QR code library
 
     if (!$conn) {
@@ -181,19 +182,19 @@ if (isset($_POST['submit'])) {
                 <input type="hidden" name="package" value="<?php echo $package; ?>">
                     <div class="col-md-6">
                         <label for="name" class="u-label">Name</label>
-                        <input type="text" placeholder="Enter your Name" id="name" name="name" required>
+                        <input type="text" placeholder="Enter your Name" id="name" name="name" required style="margin-bottom: 10px;">
                     </div>
                     <div class="col-md-6">
                         <label for="phone" class="u-label">Phone</label>
-                        <input type="text" placeholder="Enter your number phone" id="phone" name="phonenum"  required>
+                        <input type="text" placeholder="Enter your number phone" id="phone" name="phonenum"  required style="margin-bottom: 10px;">
                     </div>
                     <div class="col-md-6">
-                        <label for="ic" class="u-label">Identification Card</label>
-                        <input type="text" placeholder="Enter your IC" id="ic" name="ic" required>
+                        <label for="ic" class="u-label" style="display: block; white-space: nowrap;" >Identification Number</label>
+                        <input type="text" placeholder="Enter your IC" id="ic" name="ic" required style="margin-bottom: 10px;">
                     </div>
                     <div class="col-md-6">
                         <label for="role" class="u-label">Role</label>
-                        <select id="role" name="role" required>
+                        <select id="role" name="role" required style="margin-bottom: 10px;">
                             <option value="" disabled selected>Select your role</option>
                             <option value="student">Student</option>
                             <option value="outsider">Non-Student</option>
@@ -201,16 +202,16 @@ if (isset($_POST['submit'])) {
                     </div>
                     <div class="col-md-6">
                         <label for="matricnum" class="u-label" name="matricnum"  style="display: none;">No.Matric</label>
-                        <input type="text" placeholder="Enter your No. Matric" id="matricnum" name="matricnum"  style="display: none;" required>
+                        <input type="text" placeholder="Enter your No. Matric" id="matricnum" name="matricnum"  style="display: none;" required style="margin-bottom: 10px;">
                     </div>
                     <div class="col-md-6">
                         <label for="school" class="u-label" style="display: none;">School</label>
-                        <input type="text" placeholder="Enter your school" id="school" name="school"  style="display: none;" required>
+                        <input type="text" placeholder="Enter your school" id="school" name="school"  style="display: none;" required style="margin-bottom: 10px;">
                     </div>
                     <div class="col-md-6">
                     <form action="process_payment.php" method="POST">
                         <label for="campus" class="u-label" style="display: none;">Campus</label>
-                        <select id="campus" name="campus"  style="display: none;"required>
+                        <select id="campus" name="campus"  style="display: none;" required style="margin-bottom: 10px;">
                             <option value="" disabled selected>Select your campus</option>
                             <option value="induk">USM INDUK</option>
                             <option value="kejut">USM KEJURUTERAAN</option>
@@ -219,7 +220,7 @@ if (isset($_POST['submit'])) {
                     </div>
                     <div class="col-md-6">
                         <label for="package" class="u-label">Package</label>
-                        <select id="package" name="package" required>
+                        <select id="package" name="package" required style="margin-bottom: 10px;">
                             <option value="" disabled selected>Select your package</option>
                             <option value="basic" <?php if(isset($_GET['package']) && $_GET['package'] == 'basic') echo 'selected'; ?>>GLOW-RIOUS STARTER</option>
                             <option value="lite" <?php if(isset($_GET['package']) && $_GET['package'] == 'lite') echo 'selected'; ?>>GLOW-RIOUS LITE</option>
@@ -229,11 +230,11 @@ if (isset($_POST['submit'])) {
                     </div>
                     <div class="col-md-6">
                         <label for="username" class="u-label">Username</label>
-                        <input type="text" placeholder="Create Username" id="username" name="username"  required>
+                        <input type="text" placeholder="Create Username" id="username" name="username"  required style="margin-bottom: 10px;">
                     </div>
                     <div class="col-md-6">
                         <label for="pass" class="u-label">Password</label>
-                        <input type="password" placeholder="Create Password" id="pass" name="pass"  required>
+                        <input type="password" placeholder="Create Password" id="pass" name="pass"  required style="margin-bottom: 10px;">
                     </div>
                     <div class="col-md-6">
                         <button type="submit" name="submit" class="btn">Register</button>
