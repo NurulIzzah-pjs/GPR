@@ -2,17 +2,6 @@
 include '../db.php'; // Ensure the correct path to db.php
 header('Content-Type: application/json');
 
-// Database connection
-$servername = "localhost";
-$username = "root";
-$password = "izzy";
-$dbname = "gpr";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
 
 // Fetch packages from the database
 $sql = "SELECT * FROM Package";
