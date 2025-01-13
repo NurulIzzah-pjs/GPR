@@ -1,12 +1,11 @@
 <?php
+include "session_config.php";
+include "session_check.php";
 include "../db.php"; // Ensure this path is correct
 
 if (!$conn) {
     die("Database connection failed: " . mysqli_connect_error());
 }
-
-// Start the session
-session_start();
 
 // Fetch user data (e.g., by session user ID)
 if (isset($_SESSION['user_username'])) {

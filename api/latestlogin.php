@@ -1,6 +1,5 @@
 <?php
-session_start();
-
+include "session_config.php";
 include '../db.php'; // Adjust the path as necessary
 
 if (!$conn) {
@@ -47,6 +46,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
 
     if ($participant) {
         if (password_verify($password, $participant["Password"])) {
+
+            session_start(); //start a new session or resume an existing one
+            session_regenerate_id(true); // prevent session fixation attacks
+
             $_SESSION['user_username'] = $username;
             $_SESSION['user_type'] = 'participant';
             header("Location: participant_dash.php");
@@ -69,6 +72,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
 
     if ($admin) {
         if (password_verify($password, $admin["AdminPassword"])) { // Verify hashed admin password
+
+            session_start(); //start a new session or resume an existing one
+            session_regenerate_id(true); // prevent session fixation attacks
+
             $_SESSION['user_username'] = $username;
             $_SESSION['user_type'] = 'admin';
             header("Location: ../Templates/admin_dashboard.html");
