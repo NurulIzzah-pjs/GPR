@@ -1,43 +1,104 @@
 <?php
-session_start();
+include "session_config.php";
+include '../db.php'; // Adjust the path as necessary
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
-  include '../db.php';  // Adjust the path as necessary
-    
-    if (!$conn) {
-        die("Database connection failed: " . mysqli_connect_error());
+if (!$conn) {
+    die("Database connection failed: " . mysqli_connect_error());
+}
+
+// Hash admin passwords (one-time process)
+$query = "SELECT AdminID, AdminPassword FROM admin"; // Use your primary key (e.g., `id`)
+$result = $conn->query($query);
+
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $id = $row['AdminID'];
+        $plainPassword = $row['AdminPassword'];
+
+        // Check if the password is already hashed
+        if (!password_get_info($plainPassword)['algo']) { 
+            // Hash the plain-text password
+            $hashedPassword = password_hash($plainPassword, PASSWORD_DEFAULT);
+
+            // Update the hashed password in the database
+            $updateQuery = $conn->prepare("UPDATE admin SET AdminPassword = ? WHERE AdminID = ?");
+            $updateQuery->bind_param("si", $hashedPassword, $id);
+            $updateQuery->execute();
+            $updateQuery->close();
+        }
     }
+    error_log("Admin passwords have been hashed and updated successfully.");
+} else {
+    error_log("No admin records found to update.") ;
+}
 
+// Proceed with login process
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
     $username = mysqli_real_escape_string($conn, $_POST['username']);
     $password = mysqli_real_escape_string($conn, $_POST['pass']);
 
+    // Check in Participant table
     $stmt = $conn->prepare("SELECT * FROM Participant WHERE Username = ?");
     $stmt->bind_param("s", $username);
     $stmt->execute();
     $result = $stmt->get_result();
-    $row = $result->fetch_assoc();
+    $participant = $result->fetch_assoc();
 
-    if ($row) {
-        if (password_verify($password, $row["Password"])) {
+    if ($participant) {
+        if (password_verify($password, $participant["Password"])) {
+
+            session_start(); //start a new session or resume an existing one
+            session_regenerate_id(true); // prevent session fixation attacks
+
             $_SESSION['user_username'] = $username;
-            header("Location: participant_dash.php?" . htmlspecialchars(SID));
+            $_SESSION['user_type'] = 'participant';
+            header("Location: participant_dash.php");
             exit();
         } else {
             echo '<script>
             alert("Invalid username or password!");
-            window.location.href = "participantlogin.php";
+            window.location.href = "latestlogin.php";
             </script>';
+            exit();
         }
-    } else {
-        echo '<script>
-        alert("Invalid username or password!");
-        window.location.href = "participantlogin.php";
-        </script>';
     }
+
+    // Check in admin table
+    $stmt = $conn->prepare("SELECT * FROM admin WHERE AdminUsername = ?");
+    $stmt->bind_param("s", $username);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $admin = $result->fetch_assoc();
+
+    if ($admin) {
+        if (password_verify($password, $admin["AdminPassword"])) { // Verify hashed admin password
+
+            session_start(); //start a new session or resume an existing one
+            session_regenerate_id(true); // prevent session fixation attacks
+
+            $_SESSION['user_username'] = $username;
+            $_SESSION['user_type'] = 'admin';
+            header("Location: ../Templates/admin_dashboard.html");
+            exit();
+        } else {
+            echo '<script>
+            alert("Invalid username or password!");
+            window.location.href = "latestlogin.php";
+            </script>';
+            exit();
+        }
+    }
+
+    // If no match found
+    echo '<script>
+    alert("Invalid username or password!");
+    window.location.href = "latestlogin.php";
+    </script>';
     $stmt->close();
     $conn->close();
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -97,7 +158,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
           <h2>Log In</h2>
           <p>Please log in using your username and password</p>
         </div>
-        <form class="log-in-form" method="POST" action="participantlogin.php">
+        <form class="log-in-form" method="POST" action="latestlogin.php">
           <div class="fillin">
             <div class="col-md-6">
               <label for="username" class="u-label">Username</label>

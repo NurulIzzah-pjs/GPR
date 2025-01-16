@@ -71,6 +71,15 @@ CREATE TABLE Schedules (
     FOREIGN KEY (EventID) REFERENCES EventDetails(EventID)
 );
 
+CREATE TABLE ContactMessages (
+    ContactID INT AUTO_INCREMENT PRIMARY KEY, 
+    name VARCHAR(255) NOT NULL,        
+    email VARCHAR(255) NOT NULL,       
+    subject VARCHAR(255) NOT NULL,     
+    message TEXT NOT NULL,             
+    submitted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP 
+);
+
 --------------------------------------------------------
 
 -- change data type
