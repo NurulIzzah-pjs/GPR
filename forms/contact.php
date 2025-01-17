@@ -1,26 +1,61 @@
 <?php
+// Enable error reporting
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
+// Prepare the response array
+$response = ['status' => 'error', 'message' => 'Something went wrong.'];
+
+// Check if form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Get form data
     $name = htmlspecialchars($_POST['name']);
     $email = htmlspecialchars($_POST['email']);
     $subject = htmlspecialchars($_POST['subject']);
     $message = htmlspecialchars($_POST['message']);
 
-    // Gmail credentials
-    $gmail_user = "your-gmail-username@gmail.com"; // your Gmail email
-    $gmail_password = "your-gmail-password"; // your Gmail password
+    // Database credentials
+    $servername = "localhost";
+    $username = "root";  // default username for MySQL
+    $password = "";      // default password is empty for XAMPP
+    $dbname = "gpr"; // your database name
 
-    // Email details
-    $to = "maeunmyunramen@gmail.com"; // admin email
-    $headers = "From: $email" . "\r\n" .
-               "Reply-To: $email" . "\r\n" .
-               "X-Mailer: PHP/" . phpversion();
-    $emailBody = "Name: $name\nEmail: $email\n\nMessage:\n$message";
+    // Create a connection
+    $conn = new mysqli($servername, $username, $password, $dbname);
 
-    // Send email using PHP's mail function
-    if (mail($to, $subject, $emailBody, $headers)) {
-        echo "Your message has been sent!";
-    } else {
-        echo "Error: Unable to send email.";
+    // Check connection
+    if ($conn->connect_error) {
+        $response['message'] = 'Connection failed: ' . $conn->connect_error;
+        echo json_encode($response);
+        exit();
     }
+
+    // Prepare the SQL statement
+    $sql = "INSERT INTO `contactmessages` (`name`, `email`, `subject`, `message`) VALUES (?, ?, ?, ?)";
+
+    // Prepare and bind
+    if ($stmt = $conn->prepare($sql)) {
+        $stmt->bind_param("ssss", $name, $email, $subject, $message); // "ssss" stands for four string parameters
+
+        // Execute the query
+        if ($stmt->execute()) {
+            $response['status'] = 'success';
+            $response['message'] = 'Your message has been received!';
+        } else {
+            $response['status'] = 'error';
+            $response['message'] = 'Error: ' . $stmt->error;
+        }
+
+        // Close statement
+        $stmt->close();
+    } else {
+        $response['message'] = 'Error preparing the SQL statement: ' . $conn->error;
+    }
+
+    // Close connection
+    $conn->close();
 }
+
+// Send the response back as JSON
+echo json_encode($response);
 ?>
