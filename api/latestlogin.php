@@ -52,6 +52,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
 
             $_SESSION['user_username'] = $username;
             $_SESSION['user_type'] = 'participant';
+
+            // Set a cookie for last login time
+            setcookie("last_login", date("l, F j, Y"), time() + (86400 * 30), "/"); // Valid for 30 days
+
             header("Location: participant_dash.php");
             exit();
         } else {
