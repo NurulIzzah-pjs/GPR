@@ -530,7 +530,7 @@ if (isset($_COOKIE['last_login'])) {
       
   </div>
   <div class="btnjoinus"> 
-    <a class="btn btn-light" href="participantlogin.php" role="button" style="background-color: #ad18ed; color: white; margin-top: 20px;">Log Out</a>
+    <a class="btn btn-light" href="logout.php" role="button" style="background-color: #ad18ed; color: white; margin-top: 20px;">Log Out</a>
   </div>
     </section>
   </main>
