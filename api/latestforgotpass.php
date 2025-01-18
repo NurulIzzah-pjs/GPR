@@ -1,3 +1,64 @@
+<?php
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['email'])) {
+    // Database credentials
+    $servername = "localhost";
+    $username = "root";
+    $password = ""; // Default password for XAMPP
+    $dbname = "gpr";
+
+    // Connect to the database
+    $conn = new mysqli($servername, $username, $password, $dbname);
+
+    // Check connection
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    // Sanitize and validate email
+    $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        echo "<p class='text-danger'>Invalid email address.</p>";
+    } else {
+        // Generate a unique token
+        $token = bin2hex(random_bytes(32));
+
+        // Check if the email exists
+        $stmt = $conn->prepare("SELECT id FROM users WHERE email = ?");
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            // Update the reset_token in the users table
+            $stmt = $conn->prepare("UPDATE users SET reset_token = ? WHERE email = ?");
+            $stmt->bind_param("ss", $token, $email);
+            if ($stmt->execute()) {
+                // Send the email
+                $resetLink = "http://localhost/your_project/reset_password.php?token=" . $token;
+                $subject = "Password Reset Request";
+                $message = "Click the link below to reset your password:\n" . $resetLink;
+                $headers = "From: noreply@yourdomain.com";
+
+                if (mail($email, $subject, $message, $headers)) {
+                    echo "<p class='text-success'>A password reset link has been sent to your email.</p>";
+                } else {
+                    echo "<p class='text-danger'>Failed to send the email.</p>";
+                }
+            } else {
+                echo "<p class='text-danger'>Failed to update the reset token. Please try again later.</p>";
+            }
+        } else {
+            echo "<p class='text-danger'>No account found with that email address.</p>";
+        }
+
+        $stmt->close();
+    }
+
+    $conn->close();
+}
+?>
+
+
 <!-- Password Reset 7  -->
 <!DOCTYPE html>
 <html lang="en">
@@ -41,19 +102,13 @@
                   </div>
                 </div>
               </div>
-              <form action="#!">
-                <div class="row gy-3 overflow-hidden">
-                  <div class="col-12">
-                    <div class="form-floating mb-3">
-                      <input type="email" class="form-control" name="email" id="email" placeholder="name@example.com" required>
-                      <label for="email" class="form-label">Email</label>
-                    </div>
-                  </div>
-                  <div class="col-12">
-                    <div class="d-grid">
-                      <button class="btn bsb-btn-xl" type="submit" style="background-color: #ad18ed; color: white; margin-top: 20px;">Reset Password</button>
-                    </div>
-                  </div>
+              <form action="latestforgotpass.php" method="POST">
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" name="email" id="email" placeholder="name@example.com" required>
+                    <label for="email" class="form-label">Email</label>
+                </div>
+                <div class="d-grid">
+                    <button class="btn bsb-btn-xl" type="submit" style="background-color: #ad18ed; color: white; margin-top: 20px;">Reset Password</button>
                 </div>
               </form>
               <div class="row">
