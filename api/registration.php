@@ -8,8 +8,7 @@ if (isset($_SESSION['user_id'])) {
 }
 
 if (isset($_POST['submit'])) {
-    // include '../db.php';
-    include 'connection.php';
+    include "../db.php";
     include "../phpqrcode/qrlib.php"; // Include the QR code library
 
     if (!$conn) {
@@ -52,15 +51,38 @@ if (isset($_POST['submit'])) {
         if ($packageResult->num_rows > 0) {
             // Generate hashed password and QR code
             $hash = password_hash($password, PASSWORD_DEFAULT);
+            
+            // Prepare the QR code directory
             $qrCodeDirectory = __DIR__ . "/qrcodes";
             if (!is_dir($qrCodeDirectory)) {
                 mkdir($qrCodeDirectory, 0777, true);
             }
 
+            // Original QR code data
+            $data = "Name: $name, IC: $ic";
+
+            // Load the private key for signing
+            $privateKey = file_get_contents('../keys/private.pem');
+
+            // Sign the data
+            openssl_sign($data, $signature, $privateKey, OPENSSL_ALGO_SHA256);
+
+            // Encode the signature to base64
+            $encodedSignature = base64_encode($signature);
+
+            // Combine the original data and the signature into a JSON structure
+            $qrData = json_encode([
+                'data' => $data,            // Original data (Name and IC)
+                'signature' => $encodedSignature // Digital signature
+            ]);
+
+            // Generate the QR code with the JSON data
             $qrFileName = $qrCodeDirectory . DIRECTORY_SEPARATOR . $ic . ".png";
-            $qrData = "Name: $name, IC: $ic";
             QRcode::png($qrData, $qrFileName, QR_ECLEVEL_L, 4);
+
+            // Save the relative path to the QR code
             $relativeQRPath = "qrcodes/" . $ic . ".png";
+
 
             // Fetch the PackageID
             $row = $packageResult->fetch_assoc();
@@ -111,7 +133,7 @@ if (isset($_POST['submit'])) {
     } else {
         echo '<script>
         alert("User already exists!!!");
-        window.location.href = "participantlogin.php";
+        window.location.href = "latestlogin.php";
         </script>';
     }
 
