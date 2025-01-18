@@ -3,67 +3,109 @@ include '../db.php'; // Include database connection
 
 header('Content-Type: application/json');
 
-// Retrieve the input data (QR Code) from the POST request
+// Retrieve and decode the QR code JSON data
 $input = json_decode(file_get_contents('php://input'), true);
-$qrCode = $input['qrCode'] ?? ''; // Use null coalescing to assign an empty string if 'qrCode' is not provided
+$qrCode = json_decode($input['qrCode'], true); // Decode JSON from QR code
+$data = $qrCode['data']; // Extract the data
+$signature = base64_decode($qrCode['signature']); // Decode the Base64-encoded signature
 
-if (!empty($qrCode)) {
-    // Extract the IC number from the QR code content
-    // Assuming the QR code format is: "Name: Anis IC: 12"
-    preg_match('/IC: (\d+)/', $qrCode, $matches);
-    $ic = $matches[1] ?? null; // Extract the IC number (e.g., "12")
+// Debug: Print the QR code data and signature
+error_log("QR Code Data: " . $data);
+error_log("QR Code Signature: " . $qrCode['signature']);
 
-    if ($ic) {
-        // Construct the QR code file path (e.g., "qrcodes/12.png")
-        $qrCodeFilePath = "qrcodes/" . $ic . ".png";
+// Load the public key for verification
+$publicKeyPath = '../keys/public.pem';
+if (!file_exists($publicKeyPath)) {
+    error_log("Error: Public key file not found at: " . $publicKeyPath);
+    echo json_encode(['success' => false, 'message' => 'Public key file not found.']);
+    exit();
+}
 
-        // Query the database using the constructed file path
-        $stmt = $conn->prepare("
-            SELECT 
-                p.ParticipantID, 
-                p.Name, 
-                pkg.PackageName 
-            FROM 
-                Participant p 
-            LEFT JOIN 
-                Package pkg 
-            ON 
-                p.PackageID = pkg.PackageID 
-            WHERE 
-                p.QRCodeStu = ?
-        ");
-        $stmt->bind_param("s", $qrCodeFilePath); // Bind the constructed file path
+$publicKey = file_get_contents($publicKeyPath);
+
+// Verify the signature
+$isValid = openssl_verify($data, $signature, $publicKey, OPENSSL_ALGO_SHA256);
+
+// Debug: Output the signature verification result
+if ($isValid === 1) {
+    error_log("Signature is valid.");
+} elseif ($isValid === 0) {
+    error_log("Invalid signature.");
+    echo json_encode(['success' => false, 'message' => 'Invalid signature. QR code is not authentic.']);
+    exit();
+} else {
+    error_log("Error verifying signature.");
+    echo json_encode(['success' => false, 'message' => 'Error verifying the signature.']);
+    exit();
+}
+
+// Extract the IC number from the QR code content
+preg_match('/IC: (\d+)/', $data, $matches);
+$ic = $matches[1] ?? null; // Extract the IC number (e.g., "12345")
+
+// Debug: Output the extracted IC number
+if ($ic) {
+    error_log("Extracted IC: " . $ic);
+} else {
+    error_log("Failed to extract IC from data: " . $data);
+    echo json_encode(['success' => false, 'message' => 'Invalid QR code data.']);
+    exit();
+}
+
+// Construct the QR code file path
+$qrCodePath = "qrcodes/" . $ic . ".png";
+
+// Debug: Output the constructed QR code path
+error_log("Constructed QR Code Path: " . $qrCodePath);
+
+// Query the database for participant information
+$stmt = $conn->prepare("
+    SELECT 
+        p.ParticipantID, 
+        p.Name, 
+        pkg.PackageName,
+        p.QRCodeStu
+    FROM 
+        Participant p 
+    LEFT JOIN 
+        Package pkg 
+    ON 
+        p.PackageID = pkg.PackageID 
+    WHERE 
+        p.QRCodeStu = ?
+");
+$stmt->bind_param("s", $qrCodePath);
+$stmt->execute();
+$result = $stmt->get_result();
+
+if ($result->num_rows > 0) {
+    $participant = $result->fetch_assoc();
+
+    // Debug: Output the stored QR code path
+    error_log("Stored QRCodeStu Path: " . $participant['QRCodeStu']);
+
+    // Check if the scanned QR code matches the stored QRCodeStu path
+    if ($qrCodePath === $participant['QRCodeStu']) {
+        // Mark attendance in the Attendance table
+        $stmt = $conn->prepare("INSERT INTO Attendance (AttendanceStatus, ScanTime, ParticipantID) VALUES (1, NOW(), ?)");
+        $stmt->bind_param("i", $participant['ParticipantID']);
         $stmt->execute();
-        $result = $stmt->get_result();
 
-        if ($result->num_rows > 0) {
-            $participant = $result->fetch_assoc();
-
-            // Mark attendance in the Attendance table
-            $stmt = $conn->prepare("INSERT INTO Attendance (AttendanceStatus, ScanTime, ParticipantID) VALUES (1, NOW(), ?)");
-            $stmt->bind_param("i", $participant['ParticipantID']);
-            $stmt->execute();
-
-            // Send a success response with participant details and package name
-            echo json_encode([
-                'success' => true,
-                'message' => 'Attendance confirmed successfully!',
-                'participantName' => $participant['Name'],
-                'packageName' => $participant['PackageName'] // Fetched from the Package table
-            ]);
-        } else {
-            // Send a failure response if the QR code is not found
-            echo json_encode(['success' => false, 'message' => 'QR code not found in the database.']);
-        }
-
-        $stmt->close();
+        // Send a success response with participant details and package name
+        echo json_encode([
+            'success' => true,
+            'message' => 'Attendance confirmed successfully!',
+            'participantName' => $participant['Name'],
+            'packageName' => $participant['PackageName']
+        ]);
     } else {
-        // Send a failure response if IC number extraction fails
-        echo json_encode(['success' => false, 'message' => 'Invalid QR code format.']);
+        error_log("QR Code path mismatch. Expected: $qrCodePath, Found: " . $participant['QRCodeStu']);
+        echo json_encode(['success' => false, 'message' => 'QR code path mismatch.']);
     }
 } else {
-    // Send a failure response if the QR code is empty
-    echo json_encode(['success' => false, 'message' => 'No QR code data provided.']);
+    error_log("Participant not found for QR Code Path: " . $qrCodePath);
+    echo json_encode(['success' => false, 'message' => 'Participant not found.']);
 }
 
 $conn->close();
+?>
