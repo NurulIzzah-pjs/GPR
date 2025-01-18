@@ -178,7 +178,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
             </div>
           </div>
           <div class="other">
-              <a href="api/latestforgotpass.php">Forget Password</a>
+              <a href="latestforgotpass.php">Forget Password</a>
               <a href="../#Packages">Register</a>
           </div>
         </form>
