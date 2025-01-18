@@ -178,3 +178,6 @@ CREATE TABLE payments (
 ALTER TABLE Participant
 ADD COLUMN PaymentID INT(6);
 
+ALTER TABLE Participant
+ADD COLUMN email VARCHAR(255) NOT NULL;
+

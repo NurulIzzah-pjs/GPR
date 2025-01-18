@@ -17,6 +17,7 @@ if (isset($_POST['submit'])) {
 
     // Retrieve and sanitize form inputs
     $name = mysqli_real_escape_string($conn, $_POST['name']);
+    $email = mysqli_real_escape_string($conn, $_POST['email']);
     $phonenum = mysqli_real_escape_string($conn, $_POST['phonenum']);
     $ic = mysqli_real_escape_string($conn, $_POST['ic']);
     $role = mysqli_real_escape_string($conn, $_POST['role']);
@@ -89,15 +90,16 @@ if (isset($_POST['submit'])) {
             $packageID = $row['PackageID'];
 
             // Insert participant data into the database
-            $sql = "INSERT INTO Participant (Name, PhoneNum, IdentificationNum, Role, MatricNum, Campus, School, PackageID, Username, Password, QRCodeStu)
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            $sql = "INSERT INTO Participant (Name, email, PhoneNum, IdentificationNum, Role, MatricNum, Campus, School, PackageID, Username, Password, QRCodeStu)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             $stmt = $conn->prepare($sql);
             if (!$stmt) {
                 die("SQL error in prepare (insert): " . $conn->error);
             }
             $stmt->bind_param(
-                "sssssssisss",
+                "ssssssssisss",
                 $name,
+                $email,
                 $phonenum,
                 $ic,
                 $role,
@@ -205,6 +207,10 @@ if (isset($_POST['submit'])) {
                     <div class="col-md-6">
                         <label for="name" class="u-label">Name</label>
                         <input type="text" placeholder="Enter your Name" id="name" name="name" required style="margin-bottom: 10px;">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="name" class="u-label">Email</label>
+                        <input type="text" placeholder="Enter your Email" id="email" name="email" required style="margin-bottom: 10px;">
                     </div>
                     <div class="col-md-6">
                         <label for="phone" class="u-label">Phone</label>
