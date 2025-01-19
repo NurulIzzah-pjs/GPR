@@ -66,9 +66,9 @@ $stmt = $conn->prepare("
         pkg.PackageName,
         p.QRCodeStu
     FROM 
-        Participant p 
+        participant p 
     LEFT JOIN 
-        Package pkg 
+        package pkg 
     ON 
         p.PackageID = pkg.PackageID 
     WHERE 
