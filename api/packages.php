@@ -15,7 +15,7 @@ header('Content-Type: application/json');
 
 
 // Fetch packages from the database
-$sql = "SELECT * FROM Package";
+$sql = "SELECT * FROM package";
 $result = $conn->query($sql);
 
 if (!$result) {

@@ -23,13 +23,13 @@ $sql = "SELECT
         ELSE 'No'
     END AS AttendanceStatus
 FROM 
-    Participant p
+    participant p
 LEFT JOIN 
-    Attendance a 
+    attendance a 
 ON 
     p.ParticipantID = a.ParticipantID
 LEFT JOIN 
-    Package pk
+    package pk
 ON 
     p.PackageID = pk.PackageID
 ORDER BY 
