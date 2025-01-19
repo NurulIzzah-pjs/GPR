@@ -19,33 +19,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['email'])) {
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         echo "<p class='text-danger'>Invalid email address.</p>";
     } else {
-        // Generate a unique token
-        $token = bin2hex(random_bytes(32));
-
         // Check if the email exists
-        $stmt = $conn->prepare("SELECT id FROM users WHERE email = ?");
+        $stmt = $conn->prepare("SELECT ParticipantID FROM participant WHERE email = ?");
         $stmt->bind_param("s", $email);
         $stmt->execute();
         $result = $stmt->get_result();
 
         if ($result->num_rows > 0) {
-            // Update the reset_token in the users table
-            $stmt = $conn->prepare("UPDATE users SET reset_token = ? WHERE email = ?");
-            $stmt->bind_param("ss", $token, $email);
-            if ($stmt->execute()) {
-                // Send the email
-                $resetLink = "http://localhost/your_project/reset_password.php?token=" . $token;
-                $subject = "Password Reset Request";
-                $message = "Click the link below to reset your password:\n" . $resetLink;
-                $headers = "From: noreply@yourdomain.com";
+            // Send the email with a placeholder reset link
+            $resetLink = "http://localhost/your_project/reset_password.php?email=" . urlencode($email);
+            $subject = "Password Reset Request";
+            $message = "Click the link below to reset your password:\n" . $resetLink;
+            $headers = "From: noreply@yourdomain.com";
 
-                if (mail($email, $subject, $message, $headers)) {
-                    echo "<p class='text-success'>A password reset link has been sent to your email.</p>";
-                } else {
-                    echo "<p class='text-danger'>Failed to send the email.</p>";
-                }
+            if (mail($email, $subject, $message, $headers)) {
+                echo "<p class='text-success'>A password reset link has been sent to your email.</p>";
             } else {
-                echo "<p class='text-danger'>Failed to update the reset token. Please try again later.</p>";
+                echo "<p class='text-danger'>Failed to send the email.</p>";
             }
         } else {
             echo "<p class='text-danger'>No account found with that email address.</p>";
