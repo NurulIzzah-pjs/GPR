@@ -8,7 +8,7 @@ if (!$conn) {
 }
 
 // Fetch user data (e.g., by session user ID)
-if (isset($_SESSION['user_username']) && $_SESSION['user_type'] === 'participant') {
+if (isset($_SESSION['user_username'])) {
     $user_username = $_SESSION['user_username'];
     
     $user_query = "SELECT Name FROM participant WHERE Username= ?";
@@ -102,14 +102,6 @@ if ($event_result && $event_result->num_rows > 0) {
 }
 
 $conn->close();
-
-// Display the last login time using the cookie
-if (isset($_COOKIE['last_login'])) {
-    $lastLoginMessage = "Your last visit was on " . htmlspecialchars($_COOKIE['last_login']);
-} else {
-    $lastLoginMessage = "This is your first login or cookies are not enabled.";
-}
-
 ?>
 
 
@@ -317,61 +309,10 @@ if (isset($_COOKIE['last_login'])) {
     justify-content: center; /* Centers the button horizontally */
     margin-top: 20px; /* Adjusts spacing from other elements */
 }
-
-.notification {
-    position: fixed;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: linear-gradient(90deg, rgba(173,24,237,1) 0%, rgba(255,105,180,1) 100%);
-    color: white;
-    font-family: 'Arial', sans-serif;
-    font-size: 16px;
-    padding: 15px 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    z-index: 1000;
-    display: none;
-    text-align: center;
-    animation: fadeIn 1s ease-out;
-}
-
-.notification button {
-    background: #fff;
-    color: #ad18ed;
-    border: none;
-    font-weight: bold;
-    padding: 5px 10px;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-left: 15px;
-}
-
-.notification button:hover {
-    background: #ad18ed;
-    color: #fff;
-    transition: 0.3s;
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
-
   </style>
 </head>
 
 <body class="index-page">
-    <!-- Notification Popup -->
-    <div id="notification" class="notification">
-    <span id="notification-message"></span>
-    <button onclick="closeNotification()">Close</button>
-</div>
-
 
   <header id="header" class="header d-flex align-items-center px-3 sticky-top">
     <div class="container-fluid position-relative d-flex align-items-center justify-content-between">
@@ -530,7 +471,7 @@ if (isset($_COOKIE['last_login'])) {
       
   </div>
   <div class="btnjoinus"> 
-    <a class="btn btn-light" href="logout.php" role="button" style="background-color: #ad18ed; color: white; margin-top: 20px;">Log Out</a>
+    <a class="btn btn-light" href="latestlogin.php" role="button" style="background-color: #ad18ed; color: white; margin-top: 20px;">Log Out</a>
   </div>
     </section>
   </main>
@@ -564,27 +505,6 @@ if (isset($_COOKIE['last_login'])) {
 
   <!-- Main JS File -->
   <script src="../assets/js/main.js"></script>
-
-  <script>
-document.addEventListener("DOMContentLoaded", function () {
-    const lastLoginMessage = "<?php echo addslashes($lastLoginMessage); ?>";
-
-    if (lastLoginMessage) {
-        const notification = document.getElementById("notification");
-        const messageSpan = document.getElementById("notification-message");
-
-        messageSpan.textContent = lastLoginMessage;
-        notification.style.display = "block";
-    }
-});
-
-function closeNotification() {
-    const notification = document.getElementById("notification");
-    notification.style.display = "none";
-}
-</script>
-
-
 
   <script>
     document.getElementById("download-btn").addEventListener("click", function () {

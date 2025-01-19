@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
     $password = mysqli_real_escape_string($conn, $_POST['pass']);
 
     // Check in Participant table
-    $stmt = $conn->prepare("SELECT * FROM Participant WHERE Username = ?");
+    $stmt = $conn->prepare("SELECT * FROM participant WHERE Username = ?");
     $stmt->bind_param("s", $username);
     $stmt->execute();
     $result = $stmt->get_result();

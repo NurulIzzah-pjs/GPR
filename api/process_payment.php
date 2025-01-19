@@ -50,12 +50,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // Handle different payment methods
     if ($payment_method == 'Debit Card') {
-        $stmt = $conn->prepare("INSERT INTO Payments (payment_method, amount, name_on_card, card_number, cvv, expiration_date) VALUES (?, ?, ?, ?, ?, ?)");
+        $stmt = $conn->prepare("INSERT INTO payments (payment_method, amount, name_on_card, card_number, cvv, expiration_date) VALUES (?, ?, ?, ?, ?, ?)");
         $expiration_date = $exp_year . '-' . $exp_month . '-01'; // Date format: YYYY-MM-DD
         $stmt->bind_param("sdssss", $payment_method, $amount, $name_on_card, $card_number, $cvv, $expiration_date);
     } else {
         // For Online Banking or E-Wallet, no debit card details are required
-        $stmt = $conn->prepare("INSERT INTO Payments (payment_method, amount) VALUES (?, ?)");
+        $stmt = $conn->prepare("INSERT INTO payments (payment_method, amount) VALUES (?, ?)");
         $stmt->bind_param("sd", $payment_method, $amount);
     }
 
@@ -74,7 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $ic = $_SESSION['IdentificationNum'];
 
         // Prepare update statement for participant table
-        $update_stmt = $conn->prepare("UPDATE Participant SET PaymentID = ? WHERE IdentificationNum = ?");
+        $update_stmt = $conn->prepare("UPDATE participant SET PaymentID = ? WHERE IdentificationNum = ?");
         if ($update_stmt === false) {
             die('Error in preparing update statement: ' . $conn->error);
         }

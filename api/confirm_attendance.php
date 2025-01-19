@@ -66,9 +66,9 @@ $stmt = $conn->prepare("
         pkg.PackageName,
         p.QRCodeStu
     FROM 
-        Participant p 
+        participant p 
     LEFT JOIN 
-        Package pkg 
+        package pkg 
     ON 
         p.PackageID = pkg.PackageID 
     WHERE 
@@ -87,7 +87,7 @@ if ($result->num_rows > 0) {
     // Check if the scanned QR code matches the stored QRCodeStu path
     if ($qrCodePath === $participant['QRCodeStu']) {
         // Mark attendance in the Attendance table
-        $stmt = $conn->prepare("INSERT INTO Attendance (AttendanceStatus, ScanTime, ParticipantID) VALUES (1, NOW(), ?)");
+        $stmt = $conn->prepare("INSERT INTO attendance (AttendanceStatus, ScanTime, ParticipantID) VALUES (1, NOW(), ?)");
         $stmt->bind_param("i", $participant['ParticipantID']);
         $stmt->execute();
 
