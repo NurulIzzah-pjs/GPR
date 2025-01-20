@@ -59,7 +59,7 @@ if (isset($_POST['submit'])) {
                 mkdir($qrCodeDirectory, 0777, true);
             }
 
-            // Original QR code data
+            // Stage 1 digital signature: QR code creation
             $data = "Name: $name, IC: $ic";
 
             // Load the private key for signing
@@ -77,7 +77,7 @@ if (isset($_POST['submit'])) {
                 'signature' => $encodedSignature // Digital signature
             ]);
 
-            // Generate the QR code with the JSON data
+            // Generate the QR code with the JSON data and save it as PNG file
             $qrFileName = $qrCodeDirectory . DIRECTORY_SEPARATOR . $ic . ".png";
             QRcode::png($qrData, $qrFileName, QR_ECLEVEL_L, 4);
 

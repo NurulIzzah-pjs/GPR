@@ -21,12 +21,13 @@ if (!file_exists($publicKeyPath)) {
     exit();
 }
 
+// Read public key from file into string variable for signature verification
 $publicKey = file_get_contents($publicKeyPath);
 
-// Verify the signature
+// Verify the signature using public key
 $isValid = openssl_verify($data, $signature, $publicKey, OPENSSL_ALGO_SHA256);
 
-// Debug: Output the signature verification result
+// Hnadle verification results
 if ($isValid === 1) {
     error_log("Signature is valid.");
 } elseif ($isValid === 0) {

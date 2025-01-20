@@ -32,8 +32,10 @@ if ($result->num_rows > 0) {
     error_log("No admin records found to update.") ;
 }
 
-// Proceed with login process
+// Handle login request
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
+
+  // mysqli_real_escape_string function prevent SQL injection attacks
     $username = mysqli_real_escape_string($conn, $_POST['username']);
     $password = mysqli_real_escape_string($conn, $_POST['pass']);
 
@@ -50,6 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
             session_start(); //start a new session or resume an existing one
             session_regenerate_id(true); // prevent session fixation attacks
 
+            // Set session varaible to reflect user role = participant
             $_SESSION['user_username'] = $username;
             $_SESSION['user_type'] = 'participant';
 
