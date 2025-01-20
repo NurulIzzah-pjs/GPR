@@ -1,13 +1,6 @@
 <?php
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['new_password'], $_GET['email'])) {
-    // Database credentials
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "gpr";
-
-    $conn = new mysqli($servername, $username, $password, $dbname);
-
+  include '../db.php'; // Ensure the correct path to db.php
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
