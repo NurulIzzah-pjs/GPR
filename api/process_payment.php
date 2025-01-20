@@ -84,7 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         if ($update_stmt->execute()) {
             // Redirect to the success page with Transaction ID
-            header('Location: /GPR/Templates/success_payment.html?transaction_id=' . $transaction_id);
+            header('Location: ../Templates/success_payment.html?transaction_id=' . $transaction_id);
             exit();
         } else {
             echo "Error updating participant: " . $update_stmt->error;
