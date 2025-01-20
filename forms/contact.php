@@ -15,10 +15,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $message = htmlspecialchars($_POST['message']);
 
     // Database credentials
-    $servername = "localhost";
-    $username = "root";  // default username for MySQL
-    $password = "";      // default password is empty for XAMPP
-    $dbname = "gpr"; // your database name
+    $servername = "sql210.infinityfree.com";
+    $username = "if0_38125659";  // default username for MySQL
+    $password = "jUcqjO8Y2ocKpE";      // default password is empty for XAMPP
+    $dbname = "if0_38125659_gpr"; // your database name
 
     // Create a connection
     $conn = new mysqli($servername, $username, $password, $dbname);

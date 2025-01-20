@@ -259,7 +259,7 @@
 <!-- JavaScript to fetch and display participant data -->
 <script>
    document.addEventListener("DOMContentLoaded", function () {
-    fetch('/GPR/api/fetch_participants.php')
+    fetch('../api/fetch_participants.php')
         .then(response => response.json())
         .then(data => {
             const studentTable = document.getElementById('studentTable');
@@ -604,7 +604,7 @@ aria-hidden="true"
   });
 
   document.addEventListener("DOMContentLoaded", function () {
-    fetch('/GPR/api/fetch_participants.php')
+    fetch('../api/fetch_participants.php')
         .then(response => response.json())
         .then(data => {
             // Define table elements for each package

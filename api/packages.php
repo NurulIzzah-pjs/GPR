@@ -1,4 +1,5 @@
 <?php
+
 // include '../db.php'; // Ensure the correct path to db.php
 // header('Content-Type: application/json');
 
@@ -10,6 +11,7 @@
 
 //Teha's Database
 include '../db.php'; // Ensure the correct path to db.php
+
 header('Content-Type: application/json');
 
 
