@@ -225,7 +225,7 @@
             <!-- Packages will be dynamically loaded here -->
             <script>
               // Fetch packages from PHP
-                fetch('/GPR/api/packages.php')
+                fetch('api/packages.php')
                 .then(response => response.json())
                 .then(packages => {
                   // Reorder the packages so the most popular one appears in the middle
