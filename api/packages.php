@@ -1,4 +1,5 @@
 <?php
+
 // include '../db.php'; // Ensure the correct path to db.php
 // header('Content-Type: application/json');
 
@@ -9,7 +10,16 @@
 // $dbname = "gpr";
 
 //Teha's Database
-include '../db.php'; // Ensure the correct path to db.php
+//include '../db.php'; // Ensure the correct path to db.php
+
+    // Database credentials
+    $servername = "sql210.infinityfree.com";
+    $username = "if0_38125659";  // default username for MySQL
+    $password = "jUcqjO8Y2ocKpE";      // default password is empty for XAMPP
+    $dbname = "if0_38125659_gpr"; // your database name
+
+    // Create a connection
+    $conn = new mysqli($servername, $username, $password, $dbname);
 header('Content-Type: application/json');
 
 
